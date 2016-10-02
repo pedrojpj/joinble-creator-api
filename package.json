@@ -1,5 +1,5 @@
 {
-  "name": "joinble-creator",
+  "name": "joinble-creator-api",
   "version": "0.0.1",
   "description": "",
   "main": "build/index.js",
@@ -12,21 +12,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gigigo-html5/gig-starter-node-api-kit.git"
+    "url": "git+https://minmaster@bitbucket.org/minmaster/joinble-creator-api.git.git"
   },
   "author": "Pedro José Peña <pedro.jose@gigigo.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gigigo-html5/gig-starter-node-api-kit/issues"
+    "url": "https://minmaster@bitbucket.org/minmaster/joinble-creator-api.git/issues"
   },
-  "homepage": "https://github.com/gigigo-html5/gig-starter-node-api-kit#readme",
+  "homepage": "https://minmaster@bitbucket.org/minmaster/joinble-creator-api.git#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
     "debug": "^2.2.0",
     "express": "^4.14.0",
     "express-graphql": "^0.5.4",
     "graphql": "^0.7.1",
-    "mongoose": "^4.6.0"
+    "mongoose": "^4.6.0",
+    "rxjs": "5.0.0-beta.12",
+    "validator": "^6.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",

@@ -3,7 +3,9 @@ import { PageQuery, PageMutation } from './page';
 import {
     GraphQLSchema,
     GraphQLObjectType,
-    GraphQLList
+    GraphQLList,
+    GraphQLNonNull,
+    GraphQLString
 } from 'graphql';
 
 const RootQuery = new GraphQLObjectType({
@@ -17,7 +19,8 @@ const RootMutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: () => ({
         addPage: PageMutation.addPage,
-        deletePage: PageMutation.deletePage
+        deletePage: PageMutation.deletePage,
+        error: { type: new GraphQLNonNull(GraphQLString)}
     })
 });
 

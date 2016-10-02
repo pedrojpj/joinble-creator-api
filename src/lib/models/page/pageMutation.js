@@ -8,6 +8,8 @@ import {
     GraphQLID
 } from 'graphql';
 
+import validator from 'validator';
+
 import PageSchema from './pageSchema';
 import PageModel from './pageModel';
 
