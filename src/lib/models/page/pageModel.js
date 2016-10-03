@@ -2,7 +2,12 @@ import mongoose from 'mongoose';
 
 const PageSchema = new mongoose.Schema({
     active: {
-        type: Boolean
+        type: Boolean,
+        default: false
+    },
+    app: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'page'
     },
     seo: {
         title: {

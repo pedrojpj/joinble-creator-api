@@ -1,4 +1,5 @@
 import { PageQuery, PageMutation } from './page';
+import { AppQuery, AppMutation } from './app';
 
 import {
     GraphQLSchema,
@@ -11,7 +12,8 @@ import {
 const RootQuery = new GraphQLObjectType({
     name: 'Query',
     fields: () => ({
-        pages: PageQuery.pages
+        pages: PageQuery.pages,
+        apps: AppQuery.apps
     })
 });
 
@@ -20,6 +22,8 @@ const RootMutation = new GraphQLObjectType({
     fields: () => ({
         addPage: PageMutation.addPage,
         deletePage: PageMutation.deletePage,
+        addApp: AppMutation.addApp,
+        deleteApp: AppMutation.deleteApp,
         error: { type: new GraphQLNonNull(GraphQLString)}
     })
 });

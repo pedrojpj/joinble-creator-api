@@ -13,21 +13,45 @@ import validator from 'validator';
 import PageSchema from './pageSchema';
 import PageModel from './pageModel';
 
+import { AppModel } from '../app';
+import { ErrorSchema } from '../error';
+
 const PageMutation = {
     addPage: {
-        type: PageSchema,
+        type: new GraphQLObjectType({
+            name: 'AddPage',
+            fields: {
+                errors: { type: new GraphQLList(ErrorSchema)},
+                page: { type: PageSchema }
+            }
+        }),
         args: {
             name: {
                 type: new GraphQLNonNull(GraphQLString)
+            },
+            app: {
+                type: new GraphQLNonNull(GraphQLID)
             },
             slug: {
                 type: new GraphQLNonNull(GraphQLString)
             }
         },
-        resolve(root, args) {
-            let newPage = new PageModel(args);
+        async resolve(root, args) {
 
-            return newPage.save();
+            let page = null;
+            let errors = [];
+            let app = await AppModel.findOne({id: args.app});
+
+            if (!app) {
+                errors.push(...[{key: 'app', message: 'This app does not exist'}]);
+            }
+            else {
+                let newPage = new PageModel(args);
+                page = await newPage.save();
+            }
+
+            return { errors, page };
+
         }
     },
     deletePage: {
