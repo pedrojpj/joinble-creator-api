@@ -1,6 +1,6 @@
 import { PageQuery, PageMutation } from './page';
 import { AppQuery, AppMutation } from './app';
-import { UserQuery } from './user';
+import { UserQuery, UserMutation } from './user';
 
 import {
     GraphQLSchema,
@@ -25,7 +25,8 @@ const RootMutation = new GraphQLObjectType({
         addPage: PageMutation.addPage,
         deletePage: PageMutation.deletePage,
         addApp: AppMutation.addApp,
-        deleteApp: AppMutation.deleteApp
+        deleteApp: AppMutation.deleteApp,
+        login: UserMutation.login
     })
 });
 

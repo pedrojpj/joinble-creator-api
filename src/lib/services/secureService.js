@@ -1,5 +1,6 @@
 import config from '~/src/lib/config';
 import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
 
 class SecureService {
     constructor() {
@@ -9,6 +10,26 @@ class SecureService {
     }
     encodePassword(string) {
         return this.md5(string+config.salt);
+    }
+    getToken(user) {
+        return jwt.sign(user, config.secret, {
+            expiresIn: 1440
+        })
+    }
+    verifyToken(token) {
+        return new Promise((resolve, reject) => {
+            jwt.verify(token, config.secret, (err, decoded) => {
+                console.lor(err);
+                console.log('token');
+                console.lod(decoded);
+
+                if (err) {
+                    reject(err);
+                }
+
+                resolve(decoded);
+            });
+        })
     }
 }
 

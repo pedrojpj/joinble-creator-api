@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "nodemon src/index.js --exec babel-node",
+    "start-dev": "babel-watch src/index.js",
     "start": "node build/index.js",
     "build": "babel src -d build",
     "fixtures": "babel-node src/lib/fixtures.js"
@@ -28,11 +28,11 @@
     "debug": "^2.2.0",
     "express": "^4.14.0",
     "express-graphql": "^0.5.4",
-    "express-session": "^1.14.1",
     "graphql": "^0.7.1",
+    "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.6.0",
-    "node-uuid": "^1.4.7",
     "passport": "^0.3.2",
+    "passport-jwt": "^2.1.0",
     "passport-local": "^1.0.0",
     "rxjs": "5.0.0-beta.12",
     "validator": "^6.0.0"
@@ -49,6 +49,7 @@
     "babel-preset-stage-2": "^6.13.0",
     "babel-register": "^6.11.6",
     "babel-root-import": "^4.1.3",
+    "babel-watch": "^2.0.3-rc0",
     "nodemon": "^1.10.2"
   }
 }

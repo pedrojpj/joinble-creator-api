@@ -10,6 +10,7 @@
         "port": "27017",
         "name": "joinble"
     },
-    "salt": "{ultrasecuresalt}"
+    "salt": "{ultrasecuresalt}",
+    "secret" : "@@2V5*~;CN67ug6"
 
 }
