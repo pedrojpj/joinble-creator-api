@@ -1,17 +1,20 @@
-import { DbService } from './services';
-import { PageModel } from './models'
+import { DbService, SecureService } from './services';
+import { UserModel } from './models/user';
 
 DbService.connect();
 
 let promises = [];
 
-for (let i = 0; i < 10; i++) {
+console.log(SecureService.encodePassword('gigigo'));
+
     promises.push(
-        PageModel.create({
-            name: 'prueba'
+        UserModel.create({
+            name: 'Pedro José Peña',
+            email: 'pedro.jose@gigigo.com',
+            password: SecureService.encodePassword('gigigo')
         })
     );
-}
+
 
 //////////
 // DONE //
