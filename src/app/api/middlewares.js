@@ -5,6 +5,7 @@ import passport from 'passport';
 
 import { SecureService } from '~/src/lib/services';
 import { UserModel } from '~/src/lib/models/user';
+import { TokenModel } from '~/src/lib/models/token';
 
 const jwtStrategy = require('passport-jwt').Strategy;
 const extractJwt = require('passport-jwt').ExtractJwt;
@@ -16,12 +17,14 @@ export default function(app){
 
     passport.use(new jwtStrategy({
         jwtFromRequest: extractJwt.fromAuthHeader(),
+        passReqToCallback: true,
         secretOrKey: config.secret
-    }, async (jwtPayload, done) => {
+    }, async (request, jwtPayload, done) => {
 
-        let user = await UserModel.findOne({_id: jwtPayload.id});
+        let token = await TokenModel.findOne({token: request.headers.authorization.replace('JWT ', '')});
+        let user = await UserModel.findOne({_id: token.id});
 
-        if (user) {
+        if (user && token) {
             done(null, user);
         } else {
             done(null, true);
@@ -38,5 +41,4 @@ export default function(app){
     });
 
     app.use(passport.initialize());
-
 }
