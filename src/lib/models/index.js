@@ -1,6 +1,7 @@
 import { PageQuery, PageMutation } from './page';
 import { AppQuery, AppMutation } from './app';
 import { UserQuery, UserMutation } from './user';
+import { CountryQuery } from './country';
 
 import {
     GraphQLSchema,
@@ -15,7 +16,8 @@ const RootQuery = new GraphQLObjectType({
     fields: () => ({
         pages: PageQuery.pages,
         apps: AppQuery.apps,
-        users: UserQuery.users
+        users: UserQuery.users,
+        countries: CountryQuery.countries
     })
 });
 
