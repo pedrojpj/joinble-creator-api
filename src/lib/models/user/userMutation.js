@@ -44,12 +44,12 @@ const UserMutation = {
 
             if (!user) {
                 errors.push(...[{key: 'user', message: 'This user does not exist'}]);
+            } else {
+                token = SecureService.getToken({id : user._id.toString()});
+                await TokenModel.find({userId: user._id}).remove();
+                let newToken = new TokenModel({ userId: user._id, token: token, lastLogin: new Date() });
+                token = await newToken.save();
             }
-
-            token = SecureService.getToken({id : user._id.toString()});
-            await TokenModel.find({userId: user._id}).remove();
-            let newToken = new TokenModel({ userId: user._id, token: token, lastLogin: new Date() });
-            token = await newToken.save();
 
             return { errors, user, token }
         }

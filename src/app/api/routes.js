@@ -9,7 +9,7 @@ export default function(app){
 
     const v1 = express.Router();
 
-    v1.get('/', passport.authenticate('jwt'), ApiController.index);
+    v1.get('/', ApiController.index);
 
     app.use('/v1', v1);
     app.use('/', v1);

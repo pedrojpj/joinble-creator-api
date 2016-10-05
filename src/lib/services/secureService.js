@@ -1,6 +1,7 @@
 import config from '~/src/lib/config';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
+import { TokenModel } from '~/src/lib/models/token';
 
 class SecureService {
     constructor() {
@@ -16,15 +17,17 @@ class SecureService {
             expiresIn: 1440
         })
     }
-    verifyToken(token) {
+    verifyToken(token, id) {
         return new Promise((resolve, reject) => {
             jwt.verify(token, config.secret, (err, decoded) => {
-                console.lor(err);
-                console.log('token');
-                console.lod(decoded);
 
                 if (err) {
-                    reject(err);
+
+                    if (err.name === 'TokenExpiredError') {
+                        TokenModel.findOne({id: id}).remove();
+                    }
+
+                    reject(null);
                 }
 
                 resolve(decoded);
