@@ -18,6 +18,15 @@ const User = new GraphQLObjectType({
         },
         email: {
             type: GraphQLString
+        },
+        city: {
+            type: GraphQLString
+        },
+        country: {
+            type: GraphQLString
+        },
+        address: {
+            type: GraphQLString
         }
     }
 })

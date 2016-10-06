@@ -6,6 +6,7 @@ import {
     GraphQLInt,
     GraphQLNonNull,
     GraphQLList,
+    GraphQLInputObjectType,
     GraphQLID
 } from 'graphql';
 
@@ -14,6 +15,18 @@ import UserSchema from './userSchema';
 import { SecureService } from '~/src/lib/services';
 import { ErrorSchema } from '../error';
 import { TokenSchema, TokenModel } from '../token';
+
+const UserInput = new GraphQLInputObjectType({
+    name: 'UserInput',
+    fields: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        address: { type: new GraphQLNonNull(GraphQLString) },
+        city: { type: new GraphQLNonNull(GraphQLString) },
+        country: { type: new GraphQLNonNull(GraphQLString) },
+        password: { type: new GraphQLNonNull(GraphQLString) }
+    }
+})
 
 const UserMutation = {
     login: {
@@ -52,6 +65,46 @@ const UserMutation = {
             }
 
             return { errors, user, token }
+        }
+    },
+    createUser: {
+        type: new GraphQLObjectType({
+            name: 'createUser',
+            fields: {
+                errors: { type: new GraphQLList(ErrorSchema)},
+                user: { type: UserSchema },
+                token: { type: TokenSchema }
+            }
+        }),
+        args: {
+            user: {
+                type: new GraphQLNonNull(UserInput)
+            }
+        },
+        async resolve(root, args) {
+
+            let errors = [];
+            let user;
+            let token;
+
+            let checkUser = await UserModel.findOne({email: args.user.email});
+
+            if (checkUser) {
+                errors.push(...[{key: 'email', message: 'This email is already registered'}]);
+            } else {
+
+                args.user.password = SecureService.encodePassword(args.user.password);
+
+                let newEmail = new UserModel(args.user);
+                user = await newEmail.save();
+                token = SecureService.getToken({id : user._id.toString()});
+                let newToken = new TokenModel({ userId: user._id, token: token, lastLogin: new Date() });
+                token = await newToken.save();
+
+            }
+
+            return { errors, token, user };
+
         }
     },
     logout: {

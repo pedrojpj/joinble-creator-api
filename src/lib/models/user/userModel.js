@@ -19,6 +19,18 @@ const UserSchema = new mongoose.Schema({
         required: true,
         validator: validator.isEmail
     },
+    city: {
+        type: String,
+        trim: true
+    },
+    country: {
+        type: String,
+        trim: true
+    },
+    address: {
+        type: String,
+        trim: true
+    },
     createdAt : {
         type : Date,
         default : Date.now
