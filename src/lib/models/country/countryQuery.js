@@ -12,6 +12,9 @@ import { ApiService } from '~/src/lib/services';
 const CountryQuery = {
     countries: {
         type: new GraphQLList(CountrySchema),
+        args: {
+            language: { type: GraphQLString }
+        },
         resolve(root, args) {
             return ApiService.request('https://restcountries.eu/rest/v1/all')
         }

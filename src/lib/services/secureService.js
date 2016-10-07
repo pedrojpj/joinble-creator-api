@@ -1,6 +1,7 @@
 import config from '~/src/lib/config';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
+import generatePassword from 'password-generator';
 import { TokenModel } from '~/src/lib/models/token';
 
 class SecureService {
@@ -33,6 +34,12 @@ class SecureService {
                 resolve(decoded);
             });
         })
+    }
+    generatePassword() {
+        let newPassword = generatePassword(12, false);
+        console.log(newPassword);
+
+        return this.encodePassword(newPassword);
     }
 }
 

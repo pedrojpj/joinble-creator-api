@@ -107,6 +107,44 @@ const UserMutation = {
 
         }
     },
+    forgetPassword: {
+        type: new GraphQLObjectType({
+            name: 'forgetPassword',
+            fields: {
+                errors: { type: new GraphQLList(ErrorSchema)},
+                status: { type: GraphQLBoolean }
+            }
+        }),
+        args: {
+            email: {
+                type: new GraphQLNonNull(GraphQLString)
+            }
+        },
+        async resolve(root, args) {
+
+            let errors = [];
+            let status;
+
+            let user = await UserModel.findOne(args);
+
+            if (!user) {
+                errors.push(...[{key: 'user', message: 'This user does not exist'}]);
+                status = false;
+            } else {
+                let newPassword = SecureService.generatePassword();
+                let updateUser = await UserModel(args, {password: newPassword});
+
+                if (!updateUser) {
+                    errors.push(...[{key: 'user', message: 'Generic error'}]);
+                } else {
+                    status = true;
+                }
+            }
+
+            return { errors, token, user };
+
+        }
+    },
     logout: {
         type: new GraphQLObjectType({
             name: 'logout',
