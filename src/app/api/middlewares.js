@@ -2,8 +2,9 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import config from '~/src/lib/config';
 import passport from 'passport';
+import multer from 'multer';
 
-import { SecureService } from '~/src/lib/services';
+import { SecureService, JsonService } from '~/src/lib/services';
 import { UserModel } from '~/src/lib/models/user';
 import { TokenModel } from '~/src/lib/models/token';
 
@@ -15,6 +16,21 @@ export default function(app){
     app.use(bodyParser.json({limit: '50mb'}));
     app.use(bodyParser.urlencoded({extended:true, limit: '50mb'}));
 
+    var DIR = './uploads/';
+    var upload = multer(
+        {
+            dest: DIR,
+            rename: function (fieldname, filename) {
+                return filename + Date.now();
+            },
+            onFileUploadStart: function (file) {
+                console.log(file.originalname + ' is starting ...');
+            },
+            onFileUploadComplete: function (file) {
+                console.log(file.fieldname + ' uploaded to  ' + file.path);
+            }
+        }
+    );
 
     passport.use(new jwtStrategy({
         jwtFromRequest: extractJwt.fromAuthHeader(),
@@ -67,5 +83,16 @@ export default function(app){
 
         })(req, res, next);
     });
+
+    app.post('/upload', function (req, res) {
+        upload(req, res, function (err) {
+            if (err) {
+                return res.json(JsonService.errorResponse(500, 'Error Generic'))
+            }
+
+            res.json(JsonService.response('Upload OK'));
+        });
+    });
+
 
 }

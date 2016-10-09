@@ -9,6 +9,10 @@ const AppSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    },
     code: {
         type: String
     },
@@ -16,6 +20,9 @@ const AppSchema = new mongoose.Schema({
         type: Array
     },
     domain: {
+        type: String
+    },
+    icon: {
         type: String
     },
     createdAt: {

@@ -5,28 +5,57 @@ import {
     GraphQLInt,
     GraphQLNonNull,
     GraphQLList,
-    GraphQLID
+    GraphQLID,
+    GraphQLInputObjectType
 } from 'graphql';
 
 import validator from 'validator';
 
-import AppSchema from './appSchema';
+import {AppSchema, Platforms} from './appSchema';
 import AppModel from './appModel';
+import { ErrorSchema } from '../error';
+
+const AppInput = new GraphQLInputObjectType({
+    name: 'AppInput',
+    fields: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        code: { type: new GraphQLNonNull(GraphQLString) },
+        platform: { type: new GraphQLNonNull(Platforms) },
+        domain: { type: new GraphQLNonNull(GraphQLString) },
+        icon: { type: new GraphQLNonNull(GraphQLString) }
+    }
+})
 
 const AppMutation = {
     addApp: {
-        type: AppSchema,
+        type: new GraphQLObjectType({
+            name: 'addApp',
+            fields: {
+                errors: { type: new GraphQLList(ErrorSchema)},
+                app: {type: AppSchema }
+            }
+        }),
         args: {
-            name: {
-                type: new GraphQLNonNull(GraphQLString)
-            },
-            domain: {
-                type: GraphQLString
+            app: {
+                type: new GraphQLNonNull(AppInput)
             }
         },
-        resolve(root, args) {
-            let newApp = new AppModel(args);
+        async resolve(root, args) {
+
             return newApp.save();
+
+            let errors = [];
+            let app = [];
+
+            if (!root.user) {
+                errors.push(...[{key: 'user', message: 'Unauthorized access'}]);
+            } else {
+                args.userId = root.user.id;
+                let newApp = new AppModel(args);
+                app = await newApp.save();
+            }
+
+            return { errors, app }
         }
     },
     deleteApp: {

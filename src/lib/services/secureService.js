@@ -37,9 +37,7 @@ class SecureService {
     }
     generatePassword() {
         let newPassword = generatePassword(12, false);
-        console.log(newPassword);
-
-        return this.encodePassword(newPassword);
+        return newPassword;
     }
 }
 

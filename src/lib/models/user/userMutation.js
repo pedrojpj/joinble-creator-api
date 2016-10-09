@@ -12,7 +12,7 @@ import {
 
 import UserModel from './userModel';
 import UserSchema from './userSchema';
-import { SecureService } from '~/src/lib/services';
+import { SecureService, EmailService } from '~/src/lib/services';
 import { ErrorSchema } from '../error';
 import { TokenSchema, TokenModel } from '../token';
 
@@ -132,7 +132,8 @@ const UserMutation = {
                 status = false;
             } else {
                 let newPassword = SecureService.generatePassword();
-                let updateUser = await UserModel(args, {password: newPassword});
+                let sendMail = EmailService.sendPassword(user.email, newPassword);
+                let updateUser = await UserModel.update(args, {password: SecureService.encodePassword(newPassword)});
 
                 if (!updateUser) {
                     errors.push(...[{key: 'user', message: 'Generic error'}]);
@@ -141,7 +142,7 @@ const UserMutation = {
                 }
             }
 
-            return { errors, token, user };
+            return { errors, status };
 
         }
     },

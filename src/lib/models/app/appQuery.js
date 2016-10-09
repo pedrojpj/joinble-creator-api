@@ -1,17 +1,37 @@
 import {
     GraphQLSchema,
     GraphQLObjectType,
-    GraphQLList
+    GraphQLList,
+    GraphQLNonNull,
+    GraphQLID
 } from 'graphql';
 
 import AppModel from './appModel';
-import AppSchema from './appSchema';
+import { AppSchema } from './appSchema';
+import { ErrorSchema } from '../error';
 
 const AppQuery = {
     apps: {
-        type: new GraphQLList(AppSchema),
-        resolve(root, args) {
-            return AppModel.find();
+        type: new GraphQLObjectType({
+            name: 'getApps',
+            fields: {
+                errors: { type: new GraphQLList(ErrorSchema)},
+                apps: {type: new GraphQLList(AppSchema)}
+            }
+        }),
+        async resolve(root, args) {
+
+            let errors = [];
+            let apps = [];
+
+            if (!root.user) {
+                errors.push(...[{key: 'user', message: 'Unauthorized access'}]);
+            } else {
+                let apps = await AppModel.find({userId: root.user.id});
+            }
+
+            return { errors, apps }
+
         }
     }
 }
