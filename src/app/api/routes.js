@@ -1,9 +1,10 @@
 import express from 'express';
-import { ApiController } from './controllers';
+import { ApiController, UploadController } from './controllers';
 import graphqlHTPP from 'express-graphql';
 import graphql from 'graphql';
 import Schema from '~/src/lib/models';
 import passport from 'passport';
+
 
 export default function(app){
 
@@ -19,5 +20,7 @@ export default function(app){
         rootValue: { user: req.user },
         graphiql: true
     })))
+
+    app.post('/upload', UploadController.upload);
 
 }
