@@ -5,6 +5,8 @@ import graphql from 'graphql';
 import Schema from '~/src/lib/models';
 import passport from 'passport';
 
+const maskErrors = require('graphql-errors').maskErrors;
+
 export default function(app){
 
     const v1 = express.Router();
@@ -13,6 +15,8 @@ export default function(app){
 
     app.use('/v1', v1);
     app.use('/', v1);
+
+    maskErrors(Schema);
 
     app.use('/graphql', graphqlHTPP(req => ({
         schema: Schema,

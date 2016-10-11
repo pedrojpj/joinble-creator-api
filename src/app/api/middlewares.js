@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import config from '~/src/lib/config';
 import passport from 'passport';
+import i18n from 'i18n';
 
 import { SecureService } from '~/src/lib/services';
 import { UserModel } from '~/src/lib/models/user';
@@ -15,6 +16,10 @@ export default function(app){
     app.use(bodyParser.json({limit: '50mb'}));
     app.use(bodyParser.urlencoded({extended:true, limit: '50mb'}));
 
+    i18n.configure({
+        locales:['en', 'es'],
+        directory: './src/lib/locales'
+    });
 
     passport.use(new jwtStrategy({
         jwtFromRequest: extractJwt.fromAuthHeader(),
