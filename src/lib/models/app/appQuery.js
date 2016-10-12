@@ -1,17 +1,21 @@
 import {
     GraphQLSchema,
     GraphQLObjectType,
-    GraphQLList
+    GraphQLList,
+    GraphQLNonNull,
+    GraphQLID
 } from 'graphql';
 
 import AppModel from './appModel';
-import AppSchema from './appSchema';
+import { AppSchema } from './appSchema';
+import { ErrorService } from '~/src/lib/services';
 
 const AppQuery = {
     apps: {
         type: new GraphQLList(AppSchema),
-        resolve(root, args) {
-            return AppModel.find();
+        async resolve(root, args) {
+            ErrorService.secure(root);
+            return await AppModel.find({user: root.user._id});
         }
     }
 }

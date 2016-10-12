@@ -12,7 +12,7 @@ import {
 
 import UserModel from './userModel';
 import UserSchema from './userSchema';
-import { SecureService } from '~/src/lib/services';
+import { SecureService, ErrorService } from '~/src/lib/services';
 import { ErrorSchema } from '../error';
 import { TokenSchema, TokenModel } from '../token';
 
@@ -33,7 +33,6 @@ const UserMutation = {
         type: new GraphQLObjectType({
             name: 'Login',
             fields: {
-                errors: { type: new GraphQLList(ErrorSchema)},
                 user: { type: UserSchema },
                 token: { type: TokenSchema }
             }
@@ -48,7 +47,6 @@ const UserMutation = {
         },
         async resolve(root, args) {
 
-            let errors = [];
             let user = null;
             let token = null;
 
@@ -56,15 +54,16 @@ const UserMutation = {
             user = await UserModel.findOne(args);
 
             if (!user) {
-                errors.push(...[{key: 'user', message: 'This user does not exist'}]);
-            } else {
-                token = SecureService.getToken({id : user._id.toString()});
-                await TokenModel.find({userId: user._id}).remove();
-                let newToken = new TokenModel({ userId: user._id, token: token, lastLogin: new Date() });
-                token = await newToken.save();
+                throw new UserError(ErrorService.getError(1001));
             }
 
-            return { errors, user, token }
+            token = SecureService.getToken({id : user._id.toString()});
+            await TokenModel.find({userId: user._id}).remove();
+            let newToken = new TokenModel({ userId: user._id, token: token, lastLogin: new Date() });
+            token = await newToken.save();
+
+
+            return { user, token }
         }
     },
     createUser: {
@@ -149,7 +148,6 @@ const UserMutation = {
         type: new GraphQLObjectType({
             name: 'logout',
             fields: {
-                errors: { type: new GraphQLList(ErrorSchema)},
                 status: { type: GraphQLBoolean }
             }
         }),
@@ -160,18 +158,14 @@ const UserMutation = {
         },
         async resolve(root, args) {
 
-            let errors = [];
+            ErrorService.secure(root);
+
             let status;
 
-            if (!root.user) {
-                errors.push(...[{key: 'user', message: 'Unauthorized access'}]);
-                status = false;
-            } else {
-                await TokenModel.find({token: args.token}).remove();
-                status = true;
-            }
+            await TokenModel.find({token: args.token}).remove();
+            status = true;
 
-            return { errors, status };
+            return { status };
 
         }
     }

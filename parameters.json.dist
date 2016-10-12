@@ -2,6 +2,7 @@
     "apps" : {
         "api": {
             "baseurl": "http://localhost:8003/",
+            "imageurl" : "http://localhost:8003/images",
             "port": 8003
         }
     },
@@ -11,6 +12,11 @@
         "name": "joinble"
     },
     "salt": "{ultrasecuresalt}",
-    "secret" : "@@2V5*~;CN67ug6"
+    "secret" : "@@2V5*~;CN67ug6",
+    "amazon" : {
+        "accessKey" : "{accessKey}",
+        "secretKey" : "{secretKey}",
+        "region" : "{region}"
+    }
 
 }

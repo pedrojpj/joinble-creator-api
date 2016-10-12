@@ -4,7 +4,7 @@ import config from '~/src/lib/config';
 import passport from 'passport';
 import i18n from 'i18n';
 
-import { SecureService } from '~/src/lib/services';
+import { SecureService, JsonService } from '~/src/lib/services';
 import { UserModel } from '~/src/lib/models/user';
 import { TokenModel } from '~/src/lib/models/token';
 

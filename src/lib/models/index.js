@@ -30,7 +30,8 @@ const RootMutation = new GraphQLObjectType({
         deleteApp: AppMutation.deleteApp,
         login: UserMutation.login,
         logout: UserMutation.logout,
-        createUser: UserMutation.createUser
+        createUser: UserMutation.createUser,
+        forgetPassword: UserMutation.forgetPassword
     })
 });
 

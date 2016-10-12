@@ -1,19 +1,27 @@
 import i18n from 'i18n';
+import { UserError } from 'graphql-errors';
 
 class ErrorService {
     constructor() {
 
     }
     getError(error) {
-        this.getErrorMessage(error);
+        return this.getErrorMessage(error);
     }
     getErrorMessage(error) {
         switch(error) {
             case 401:
-                return i18n.__('UNAUTHORIZED_ACCESS');
+                return 'UNAUTHORIZED_ACCESS';
+            case 1001:
+                return 'USER_NOT_EXIST'
             break;
         }
 
+    }
+    secure(root) {
+        if (!root.user) {
+            throw new UserError(this.getError(401));
+        }
     }
 }
 

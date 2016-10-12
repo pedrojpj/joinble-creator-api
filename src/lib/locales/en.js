@@ -1,3 +1,3 @@
-module.exports = {
-    'UNAUTHORIZED_ACCESS' : 'Unauthorized Access'
+{
+	"UNAUTHORIZED_ACCESS": "UNAUTHORIZED_ACCESS"
 }

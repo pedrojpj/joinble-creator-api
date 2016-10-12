@@ -1,5 +1,5 @@
 import express from 'express';
-import { ApiController } from './controllers';
+import { ApiController, UploadController, ImageController } from './controllers';
 import graphqlHTPP from 'express-graphql';
 import graphql from 'graphql';
 import Schema from '~/src/lib/models';
@@ -23,5 +23,8 @@ export default function(app){
         rootValue: { user: req.user },
         graphiql: true
     })))
+
+    app.post('/upload', UploadController.upload);
+    app.use('/images/:image', ImageController.index);
 
 }

@@ -10,7 +10,7 @@ const User = new GraphQLObjectType({
     name: 'User',
     description: 'This represent a User',
     fields: {
-        _id: {
+        id: {
             type: new GraphQLNonNull(GraphQLID)
         },
         name: {

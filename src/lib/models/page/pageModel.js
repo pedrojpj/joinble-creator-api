@@ -11,13 +11,13 @@ const PageSchema = new mongoose.Schema({
     },
     seo: {
         title: {
-            type: String
+            type: {}
         },
         description: {
-            type: String
+            type: {}
         },
         keywords: {
-            type: Array
+            type: {}
         }
     },
     name: {
@@ -28,7 +28,7 @@ const PageSchema = new mongoose.Schema({
         type: String
     },
     widgets: {
-        type: Array
+        type: []
     },
     createdAt: {
         type: Date,

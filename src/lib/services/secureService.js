@@ -15,7 +15,7 @@ class SecureService {
     }
     getToken(user) {
         return jwt.sign(user, config.secret, {
-            expiresIn: 1440
+            expiresIn: 50000
         })
     }
     verifyToken(token, id) {
@@ -37,9 +37,7 @@ class SecureService {
     }
     generatePassword() {
         let newPassword = generatePassword(12, false);
-        console.log(newPassword);
-
-        return this.encodePassword(newPassword);
+        return newPassword;
     }
 }
 
