@@ -6,25 +6,9 @@ import {
     GraphQLID
 } from 'graphql';
 
-import { TranslationSchema } from '../translation';
+import { SeoSchema } from '../seo';
 
-const Seo = new GraphQLObjectType({
-    name: 'Seo',
-    description: 'This represent seo content of Page',
-    fields: {
-        title: {
-            type: TranslationSchema
-        },
-        description: {
-            type: TranslationSchema
-        },
-        keywords: {
-            type: TranslationSchema
-        }
-    }
-})
-
-const Page = new GraphQLObjectType({
+export const PageSchema = new GraphQLObjectType({
     name: 'Page',
     description: 'This represent a Page',
     fields: {
@@ -41,7 +25,7 @@ const Page = new GraphQLObjectType({
             type: GraphQLID
         },
         seo: {
-            type: Seo
+            type: SeoSchema
         },
         createdAt: {
             type: GraphQLString
@@ -52,4 +36,4 @@ const Page = new GraphQLObjectType({
     }
 })
 
-export default Page;
+export default PageSchema;

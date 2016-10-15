@@ -9,18 +9,29 @@ class ErrorService {
         return this.getErrorMessage(error);
     }
     getErrorMessage(error) {
+        let message;
+
         switch(error) {
             case 401:
-                return 'UNAUTHORIZED_ACCESS';
+                message = 'UNAUTHORIZED_ACCESS';
+            break;
             case 1001:
-                return 'USER_NOT_EXIST'
+                message = 'USER_NOT_EXIST';
+            break;
+            case 1002:
+                message = 'APP_NOT_EXIST';
+            break;
+            default:
+                message = 'GENERIC_ERROR';
             break;
         }
+
+        throw new UserError(message);
 
     }
     secure(root) {
         if (!root.user) {
-            throw new UserError(this.getError(401));
+            this.getError(401);
         }
     }
 }

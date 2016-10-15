@@ -2,6 +2,7 @@ import { PageQuery, PageMutation } from './page';
 import { AppQuery, AppMutation } from './app';
 import { UserQuery, UserMutation } from './user';
 import { CountryQuery } from './country';
+import { TranslationQuery } from './translation';
 
 import {
     GraphQLSchema,
@@ -17,7 +18,9 @@ const RootQuery = new GraphQLObjectType({
         pages: PageQuery.pages,
         apps: AppQuery.apps,
         users: UserQuery.users,
-        countries: CountryQuery.countries
+        checkUser: UserQuery.checkUser,
+        countries: CountryQuery.countries,
+        translations: TranslationQuery.translations
     })
 });
 

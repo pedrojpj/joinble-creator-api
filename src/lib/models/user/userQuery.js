@@ -3,7 +3,8 @@ import {
     GraphQLObjectType,
     GraphQLList,
     GraphQLNonNull,
-    GraphQLString
+    GraphQLString,
+    GraphQLBoolean
 } from 'graphql';
 
 import UserModel from './userModel';
@@ -14,6 +15,27 @@ const UserQuery = {
         type: new GraphQLList(UserSchema),
         resolve(root, args) {
             return UserModel.find();
+        }
+    },
+    checkUser: {
+        type: new GraphQLObjectType({
+            name: 'checkUser',
+            fields: {
+                status: {
+                    type: GraphQLBoolean
+                }
+            }
+        }),
+        resolve(root, args) {
+
+            let status = true;
+
+            if (!root.user) {
+                status = false;
+            }
+
+            return { status }
+
         }
     }
 }

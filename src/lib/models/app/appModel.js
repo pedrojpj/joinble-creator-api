@@ -25,6 +25,9 @@ const AppSchema = new mongoose.Schema({
     icon: {
         type: String
     },
+    languages: {
+        type: []
+    },
     createdAt: {
         type: Date,
         default: Date.now

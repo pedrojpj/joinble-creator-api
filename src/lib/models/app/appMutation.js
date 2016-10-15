@@ -26,7 +26,8 @@ const AppInput = new GraphQLInputObjectType({
         code: { type: new GraphQLNonNull(GraphQLString) },
         platform: { type: new GraphQLNonNull(new GraphQLList(Platforms)) },
         domain: { type: new GraphQLNonNull(GraphQLString) },
-        icon: { type: new GraphQLNonNull(GraphQLString) }
+        icon: { type: new GraphQLNonNull(GraphQLString) },
+        languages: { type: new GraphQLNonNull(GraphQLList(GraphQLString))}
     }
 })
 
@@ -68,9 +69,9 @@ const AppMutation = {
 
             args.user =  mongoose.Types.ObjectId(root.user.id);
             args._id = mongoose.Types.ObjectId(args.id);
-            let deleteUser = await AppModel.find({user: args.user, _id: args._id}).remove();
+            let deleteApp = await AppModel.find({user: args.user, _id: args._id}).remove();
 
-            if (!deleteUser) {
+            if (!deleteApp) {
                 status = false;
             }
 

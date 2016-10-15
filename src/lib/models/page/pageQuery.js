@@ -7,7 +7,7 @@ import {
 } from 'graphql';
 
 import PageModel from './pageModel';
-import PageSchema from './pageSchema';
+import { PageSchema } from './pageSchema';
 
 import { ErrorService } from '~/src/lib/services';
 

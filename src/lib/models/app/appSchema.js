@@ -55,6 +55,9 @@ export const AppSchema = new GraphQLObjectType({
                     return config.apps.api.imageurl + app.icon;
                 }
             },
+            languages: {
+                type: new GraphQLList(GraphQLString)
+            },
             updateAt: {
                 type: GraphQLString
             },

@@ -69,7 +69,6 @@ export default function(app){
 
             next();
 
-
         })(req, res, next);
     });
 

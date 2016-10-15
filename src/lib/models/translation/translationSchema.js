@@ -6,23 +6,12 @@ import {
     GraphQLID
 } from 'graphql';
 
+import { TranslationService } from '~/src/lib/services';
+
 const Translation = new GraphQLObjectType({
     name: 'Translation',
     description: 'This represent a Translation',
-    fields: {
-        es: {
-            type: GraphQLString
-        },
-        en: {
-            type: GraphQLString
-        },
-        fr: {
-            type: GraphQLString
-        },
-        de: {
-            type: GraphQLString
-        }
-    }
+    fields: TranslationService.generateSchema()
 })
 
 export default Translation;
