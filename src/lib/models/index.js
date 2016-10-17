@@ -17,6 +17,7 @@ const RootQuery = new GraphQLObjectType({
     fields: () => ({
         pages: PageQuery.pages,
         apps: AppQuery.apps,
+        app: AppQuery.app,
         users: UserQuery.users,
         checkUser: UserQuery.checkUser,
         countries: CountryQuery.countries,

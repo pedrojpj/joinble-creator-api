@@ -27,7 +27,7 @@ const AppInput = new GraphQLInputObjectType({
         platform: { type: new GraphQLNonNull(new GraphQLList(Platforms)) },
         domain: { type: new GraphQLNonNull(GraphQLString) },
         icon: { type: new GraphQLNonNull(GraphQLString) },
-        languages: { type: new GraphQLNonNull(GraphQLList(GraphQLString))}
+        languages: { type: new GraphQLNonNull(new GraphQLList(GraphQLString))}
     }
 })
 
