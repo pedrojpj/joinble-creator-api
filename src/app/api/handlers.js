@@ -7,7 +7,7 @@ export default function(app){
 
 	//404 and 500
    	app.use(function(req,res,next){
-   		console.log('404',req.url);
+   		debug('404',req.url);
    		res.status(404).json(JsonService.errorResponse(404,'Route not found'));
    	});
 
@@ -29,8 +29,8 @@ export default function(app){
    		}
 
    		//Server log
-   		console.log('-------- error ocurred -------------------');
-   		console.log(errorData);
+   		debug('-------- error ocurred -------------------');
+   		debug(errorData);
 
 
    		//Response
@@ -40,7 +40,7 @@ export default function(app){
    		try{
    			res.json(errorResponse);
    		}catch(e){
-   			console.log('Error not sent, headers already sent');
+   			debug('Error not sent, headers already sent');
    		}
    		res.end();
    	});

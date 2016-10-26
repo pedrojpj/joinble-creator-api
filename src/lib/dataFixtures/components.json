@@ -1,0 +1,44 @@
+{
+    "components" : [
+        {
+            "name" : "title",
+            "type" : "input[text]",
+            "selector" : "title"
+        },
+        {
+            "name" : "description",
+            "type" : "textarea",
+            "selector" : "text"
+        },
+        {
+            "name" : "image",
+            "type" : "input[image]",
+            "selector" : "image"
+        },
+        {
+            "name" : "link",
+            "type" : "input[link]",
+            "selector" : "link"
+        },
+        {
+            "name" : "button",
+            "type" : "button",
+            "selector" : "button"
+        },
+        {
+            "name" : "code",
+            "type" : "code",
+            "selector" : "code"
+        },
+        {
+            "name" : "gallery",
+            "type" : "repeat",
+            "selector": "gallery",
+            "children": {
+                "name" : "image",
+                "type" : "input[image]",
+                "selector" : "image"
+            }
+        }
+    ]
+}

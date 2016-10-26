@@ -54,7 +54,7 @@ const UserMutation = {
             user = await UserModel.findOne(args);
 
             if (!user) {
-                throw new UserError(ErrorService.getError(1001));
+                return ErrorService.getErrorMessage(1001);
             }
 
             token = SecureService.getToken({id : user._id.toString()});

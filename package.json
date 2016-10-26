@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "babel-watch src/index.js",
+    "start-dev": "DEBUG=JOINBLE* babel-watch src/index.js",
     "start": "node build/index.js",
     "build": "babel src -d build",
     "fixtures": "babel-node src/lib/fixtures.js"
@@ -21,7 +21,6 @@
   },
   "homepage": "https://minmaster@bitbucket.org/minmaster/joinble-creator-api.git#readme",
   "dependencies": {
-    "babel-plugin-transform-async-to-generator": "^6.16.0",
     "body-parser": "^1.15.2",
     "cors": "^2.8.1",
     "crypto": "0.0.3",

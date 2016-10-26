@@ -16,12 +16,14 @@ import mongoose from 'mongoose';
 import {AppSchema, Platforms} from './appSchema';
 import AppModel from './appModel';
 import { ErrorSchema } from '../error';
+import { ImageSchema } from '../image';
 import { ErrorService } from '~/src/lib/services';
 
 
 const AppInput = new GraphQLInputObjectType({
     name: 'AppInput',
     fields: {
+        id: { type: GraphQLString },
         name: { type: new GraphQLNonNull(GraphQLString) },
         code: { type: new GraphQLNonNull(GraphQLString) },
         platform: { type: new GraphQLNonNull(new GraphQLList(Platforms)) },
@@ -43,10 +45,18 @@ const AppMutation = {
 
             ErrorService.secure(root);
 
-            // Add New Application
             args.app.user = mongoose.Types.ObjectId(root.user.id);
-            let newApp = new AppModel(args.app);
-            return await newApp.save();
+            args.app.id = mongoose.Types.ObjectId(args.app.id);
+
+            let app = await AppModel.findOne({user: args.app.user, _id: args.app.id});
+
+            if (app) {
+                return await AppModel.findOneAndUpdate({user: args.app.user, _id: args.app.id}, {$set: args.app});
+            } else {
+                let newApp = new AppModel(args.app);
+                return await newApp.save();
+            }
+
         }
     },
     deleteApp: {

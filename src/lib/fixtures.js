@@ -1,11 +1,11 @@
 import { DbService, SecureService } from './services';
 import { UserModel } from './models/user';
+import { ComponentModel } from './models/component';
+import ComponentsData from './dataFixtures/components.json';
 
 DbService.connect();
 
 let promises = [];
-
-console.log(SecureService.encodePassword('gigigo'));
 
     promises.push(
         UserModel.create({
@@ -14,6 +14,14 @@ console.log(SecureService.encodePassword('gigigo'));
             password: SecureService.encodePassword('gigigo')
         })
     );
+
+    for (let component of ComponentsData.components) {
+        console.log(component);
+        let componentModel = new ComponentModel(component);
+        promises.push(
+            componentModel.save()
+        );
+    }
 
 
 //////////

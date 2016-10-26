@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import config from '../config';
 
+const debug = require('debug')(config.appName);
+
 mongoose.Promise = global.Promise;
 
 export default {
@@ -13,7 +15,7 @@ export default {
     	mongoose.connection
     	    .on('error', console.error.bind(console, 'mongodb connection error:') )
     	    .on('open', function (db) {
-    	        console.log('mongodb connected');
+    	        debug('mongodb connected');
     	    });
 
     	mongoose.set('debug', config.debug);

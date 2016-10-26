@@ -1,18 +1,16 @@
 import {
-    GraphQLObjectType,
-    GraphQLInt,
-    GraphQLString,
     GraphQLNonNull,
+    GraphQLString,
+    GraphQLObjectType,
     GraphQLID
 } from 'graphql';
 
-const Error = new GraphQLObjectType({
-    name: 'Error',
-    description: 'This represent a Error',
+const ErrorSchema = new GraphQLObjectType({
+    name: 'ErrorSchema',
     fields: {
-        key: { type:  GraphQLString },
-        message: { type:  GraphQLString }
+        key: { type: new GraphQLNonNull(GraphQLString) },
+        value: { type: new GraphQLNonNull(GraphQLString) }
     }
 })
 
-export default Error;
+export default ErrorSchema;

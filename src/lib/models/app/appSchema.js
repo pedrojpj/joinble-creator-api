@@ -9,6 +9,7 @@ import {
 } from 'graphql';
 
 import config from '~/src/lib/config';
+import { ImageSchema } from '../image';
 
 export const Platforms = new GraphQLEnumType({
     name: 'platforms',
@@ -50,9 +51,9 @@ export const AppSchema = new GraphQLObjectType({
                 type: GraphQLString
             },
             icon: {
-                type: GraphQLString,
+                type: ImageSchema,
                 resolve(app) {
-                    return config.apps.api.imageurl + app.icon;
+                    return app.icon
                 }
             },
             languages: {

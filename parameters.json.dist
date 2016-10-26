@@ -1,4 +1,5 @@
 {
+    "appName" : "JOINBLE",
     "apps" : {
         "api": {
             "baseurl": "http://localhost:8003/",

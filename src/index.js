@@ -28,5 +28,5 @@ api.routes(apiApp);
 api.handlers(apiApp);
 
 apiApp.listen(apiPort,function(){
-	console.log(`>>> API http listening ${apiPort}`);
+	debug(`>>> API http listening ${apiPort}`);
 });
