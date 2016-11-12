@@ -1,7 +1,7 @@
-import { DbService, SecureService } from './services';
-import { UserModel } from './models/user';
-import { ComponentModel } from './models/component';
-import ComponentsData from './dataFixtures/components.json';
+import ComponentsData  from './dataFixtures/components.json'
+import { ComponentModel } from './models/component'
+import { UserModel } from './models/user'
+import { DbService, SecureService } from './services'
 
 DbService.connect();
 

@@ -1,7 +1,7 @@
-import AppQuery from './appQuery';
-import AppMutation from './appMutation';
-import AppSchema from './appSchema';
-import AppModel from './appModel';
+import AppModel  from './appModel'
+import AppMutation  from './appMutation'
+import AppQuery  from './appQuery'
+import AppSchema  from './appSchema'
 
 export {
     AppQuery,

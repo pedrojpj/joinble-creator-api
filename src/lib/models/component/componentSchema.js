@@ -1,11 +1,4 @@
-import {
-    GraphQLObjectType,
-    GraphQLInt,
-    GraphQLString,
-    GraphQLNonNull,
-    GraphQLID,
-    GraphQLList
-} from 'graphql';
+import { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLNonNull, GraphQLID, GraphQLList } from 'graphql'
 
 export const ComponentSchema = new GraphQLObjectType({
     name: 'Component',

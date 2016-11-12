@@ -1,15 +1,7 @@
-import {
-    GraphQLSchema,
-    GraphQLObjectType,
-    GraphQLList,
-    GraphQLID,
-    GraphQLNonNull
-} from 'graphql';
-
-import ComponentModel from './componentModel';
-import ComponentSchema from './componentSchema';
-
-import { ErrorService } from '~/src/lib/services';
+import { GraphQLSchema, GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } from 'graphql'
+import { ErrorService } from '~/src/lib/services'
+import ComponentModel  from './componentModel'
+import ComponentSchema  from './componentSchema'
 
 const ComponentQuery = {
     components: {
