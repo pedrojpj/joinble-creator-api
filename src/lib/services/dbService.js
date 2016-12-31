@@ -1,26 +1,43 @@
-import mongoose  from 'mongoose'
-import config  from '../config'
+import mongoose from 'mongoose';
+import Promise from 'bluebird';
+import config from '../config';
 
-const debug = require('debug')(config.appName);
+const debug = require('debug')(config.APP_NAME);
 
-mongoose.Promise = global.Promise;
+mongoose.Promise = Promise;
 
-export default {
-    connect: function() {
-        mongoose.connect('mongodb://'+config.db.host+':'+config.db.port+'/'+config.db.name, {
-    	    user: config.db.user,
-    	    pass: config.db.pass
-    	});
+class DbService {
+    constructor() {
+        this._connected = false;
+        this.retries = 0;
+        this.uri = config.DB_URI;
+    }
+    connected() {
+        return this._connected;
+    }
+    connect() {
+        mongoose.connect(this.uri);
 
-    	mongoose.connection
-    	    .on('error', console.error.bind(console, 'mongodb connection error:') )
-    	    .on('open', function (db) {
-    	        debug('mongodb connected');
-    	    });
+        mongoose.connection
+            .on('error', () => {
+                debug('mongodb connect error');
+                debug('try connect');
+            })
+            .on('open', (db) => {
+                debug('mongodb connected');
+                this._connected = true;
+            })
+            .on('disconnected', () => {
+                this._connected = false;
+                setTimeout(this.connect, 5000);
+            })
 
-    	mongoose.set('debug', config.debug);
-    },
-    disconnect: function() {
+        mongoose.set('debug', config.DEBUG);
+    }
+
+    disconnect() {
         mongoose.disconnect();
     }
 }
+
+export default new DbService();

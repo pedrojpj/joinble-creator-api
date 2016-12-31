@@ -21,12 +21,13 @@ DbService.connect();
 import api from './app/api';
 
 const apiApp = express();
-const apiPort = config.apps.api.port;
+const apiPort = config.PORT;
 
 api.middlewares(apiApp);
 api.routes(apiApp);
 api.handlers(apiApp);
 
 apiApp.listen(apiPort,function(){
+	console.log(`>>> API http listening ${apiPort}`)
 	debug(`>>> API http listening ${apiPort}`);
 });
