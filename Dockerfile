@@ -14,11 +14,12 @@ USER $USER
 WORKDIR /home/$USER
 
 COPY ./package.json /home/$NAME/package.json
+COPY ./parameters.json.dist /home/$NAME/parameters.json
+
 RUN cd /home/$NAME && yarn
 
 COPY . /home/$NAME
 
 EXPOSE 5000
 
-RUN ls
 CMD npm run start-dev

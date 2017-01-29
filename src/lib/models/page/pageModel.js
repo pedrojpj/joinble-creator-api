@@ -9,17 +9,6 @@ const PageSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'page'
     },
-    seo: {
-        title: {
-            type: {}
-        },
-        description: {
-            type: {}
-        },
-        keywords: {
-            type: {}
-        }
-    },
     name: {
         type: String,
         trim: true

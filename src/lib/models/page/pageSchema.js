@@ -24,9 +24,6 @@ export const PageSchema = new GraphQLObjectType({
         app: {
             type: GraphQLID
         },
-        seo: {
-            type: SeoSchema
-        },
         createdAt: {
             type: GraphQLString
         },

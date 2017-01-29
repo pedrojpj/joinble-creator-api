@@ -20,6 +20,7 @@ export default function(app){
 
     app.use('/graphql', graphqlHTPP(req => ({
         schema: Schema,
+        ssrMode: false,
         rootValue: { user: req.user },
         graphiql: true
     })))

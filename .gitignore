@@ -4,3 +4,4 @@ keys.json
 build/
 uploads/
 npm-debug.log
+.ash_history
