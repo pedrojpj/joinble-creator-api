@@ -1,7 +1,9 @@
 import {
     GraphQLNonNull,
     GraphQLString,
+    GraphQlInt,
     GraphQLInputObjectType,
+    GraphQLBoolean,
     GraphQLID
 } from 'graphql';
 
@@ -10,7 +12,9 @@ const PageInput = new GraphQLInputObjectType({
     fields: {
         name: { type: new GraphQLNonNull(GraphQLString) },
         slug: { type: new GraphQLNonNull(GraphQLString) },
-        app: { type: new GraphQLNonNull(GraphQLID) }
+        app: { type: new GraphQLNonNull(GraphQLID) },
+        active: { type: new GraphQLNonNull(GraphQLBoolean) },
+        primary: { type: GraphQLBoolean }
     }
 })
 

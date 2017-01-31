@@ -3,6 +3,7 @@ import {
     GraphQLInt,
     GraphQLString,
     GraphQLNonNull,
+    GraphQLBoolean,
     GraphQLID
 } from 'graphql';
 
@@ -23,6 +24,12 @@ export const PageSchema = new GraphQLObjectType({
         },
         app: {
             type: GraphQLID
+        },
+        active: {
+            type: GraphQLBoolean
+        },
+        primary: {
+            type: GraphQLBoolean
         },
         createdAt: {
             type: GraphQLString

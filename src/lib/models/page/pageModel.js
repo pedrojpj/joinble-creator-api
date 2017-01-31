@@ -19,6 +19,13 @@ const PageSchema = new mongoose.Schema({
     widgets: {
         type: []
     },
+    active: {
+        type: Boolean
+    },
+    primary: {
+        type: Boolean,
+        default: false
+    },
     createdAt: {
         type: Date,
         default: Date.now
