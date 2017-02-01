@@ -1,11 +1,10 @@
 import mongoose  from 'mongoose'
 
-const ComponentSchema = new mongoose.Schema({
+const ElementSchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true,
-        required: true,
-        unique: true
+        required: true
     },
     description: {
         type: String,
@@ -17,10 +16,9 @@ const ComponentSchema = new mongoose.Schema({
     },
     selector: {
         type: String,
-        required: true
-    },
-    childs: {
-        type: {}
+        required: true,
+        trim: true,
+        unique: true
     },
     createdAt : {
         type : Date,
@@ -31,9 +29,9 @@ const ComponentSchema = new mongoose.Schema({
     }
 })
 
-ComponentSchema.pre('save', function(next){
+ElementSchema.pre('save', function(next){
     this.updatedAt = Date.now();
     next();
 });
 
-export default mongoose.model( 'component', ComponentSchema);
+export default mongoose.model('element', ElementSchema);

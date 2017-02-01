@@ -1,8 +1,8 @@
 import { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLNonNull, GraphQLID, GraphQLList } from 'graphql'
 
-export const ComponentSchema = new GraphQLObjectType({
-    name: 'Component',
-    description: 'This represent a Component',
+export const ElementSchema = new GraphQLObjectType({
+    name: 'Element',
+    description: 'This represent a Element',
     fields: {
         id: {
             type: new GraphQLNonNull(GraphQLID)
@@ -28,4 +28,4 @@ export const ComponentSchema = new GraphQLObjectType({
     }
 })
 
-export default ComponentSchema;
+export default ElementSchema;

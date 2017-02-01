@@ -1,5 +1,9 @@
 node_modules/
 parameters.json
+.babel.json
+.bash_history
+.v8flags.5.1.281.84.web.json
+bab
 keys.json
 build/
 uploads/

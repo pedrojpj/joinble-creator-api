@@ -1,10 +1,7 @@
-import mongoose  from 'mongoose'
+import mongoose  from 'mongoose';
+import { UtilsService } from '~/src/lib/services';
 
 const PageSchema = new mongoose.Schema({
-    active: {
-        type: Boolean,
-        default: false
-    },
     app: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'page'
@@ -20,7 +17,8 @@ const PageSchema = new mongoose.Schema({
         type: []
     },
     active: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     primary: {
         type: Boolean,
@@ -33,6 +31,11 @@ const PageSchema = new mongoose.Schema({
     updateAt: {
         type: Date
     }
+})
+
+PageSchema.pre('save', function(next) {
+    this.slug = UtilsService.generateSlug(this.slug);
+    next();
 })
 
 export default mongoose.model('page', PageSchema);

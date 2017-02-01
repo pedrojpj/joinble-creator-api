@@ -37,8 +37,16 @@ const PageMutation = {
                 ErrorService.getError(1002);
             }
             else {
-                let newPage = new PageModel(args.page);
-                return await newPage.save();
+                args.page.id = mongoose.Types.ObjectId(args.page.id);
+
+                let page = await PageModel.findOne({_id: args.page.id});
+
+                if (page) {
+                    return await PageModel.findOneAndUpdate({_id: args.page.id}, {$set: args.page});
+                } else {
+                    let newPage = new PageModel(args.page);
+                    return await newPage.save();
+                }
             }
 
         }

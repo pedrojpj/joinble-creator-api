@@ -1,13 +1,21 @@
 import mongoose from 'mongoose';
 
-const WidgetSchema = new moongose.Schema({
+const WidgetSchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true,
         required: true
     },
+    description: {
+        type: String
+    },
     content: mongoose.Schema.Types.Mixed,
     styles: {},
+    selector: {
+        type: String,
+        required: true,
+        unique: true
+    },
     createdAt : {
         type : Date,
         default : Date.now

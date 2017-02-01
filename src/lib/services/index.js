@@ -5,6 +5,7 @@ import ApiService from './apiService';
 import ErrorService from './errorService';
 import EmailService from './emailService';
 import TranslationService from './translationService';
+import UtilsService from './utilsService';
 
 export {
     DbService,
@@ -13,5 +14,6 @@ export {
     ApiService,
     ErrorService,
     EmailService,
-    TranslationService
+    TranslationService,
+    UtilsService
 }

@@ -1,5 +1,5 @@
 {
-    "components" : [
+    "elements" : [
         {
             "name" : "title",
             "type" : "input[text]",
@@ -14,6 +14,11 @@
             "name" : "image",
             "type" : "input[image]",
             "selector" : "image"
+        },
+        {
+            "name" : "subtitle",
+            "type" : "input[text]",
+            "selector" : "subtitle"
         },
         {
             "name" : "link",
@@ -31,14 +36,19 @@
             "selector" : "code"
         },
         {
-            "name" : "gallery",
-            "type" : "repeat",
-            "selector": "gallery",
-            "children": {
-                "name" : "image",
-                "type" : "input[image]",
-                "selector" : "image"
-            }
+            "name" : "input",
+            "type" : "input[text]",
+            "selector" : "input"
+        },
+        {
+            "name" : "video",
+            "type" : "input[video]",
+            "selector" : "video"
+        },
+        {
+            "name" : "tags",
+            "type" : "input[tags]",
+            "selector" : "tags"
         }
     ]
 }

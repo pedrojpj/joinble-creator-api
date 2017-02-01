@@ -1,0 +1,36 @@
+{
+    "widgets" : [
+        {
+            "name" : "Seo Content",
+            "selector" : "seo",
+            "description" : "Widget to insert seo content on the page",
+            "content" : [
+                {
+                    "component" : "title",
+                    "name" : "Meta Title",
+                    "label" : {
+                        "es" : "Introduce el título de la página",
+                        "en" : "Enter the title of the page"
+                    }
+                },
+                {
+                    "component" : "tags",
+                    "name" : "Meta Keywords",
+                    "label" : {
+                        "es" : "Introduce las palabras clave de la página",
+                        "en" : "Enter the keywords of the page"
+                    }
+                },
+                {
+                    "component" : "description",
+                    "name" : "Meta Description",
+                    "label" : {
+                        "es" : "Introduce la descripción de la página",
+                        "en" : "Enter the description of the page"
+                    }
+                }
+
+            ]
+        }
+    ]
+}

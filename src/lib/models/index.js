@@ -4,6 +4,7 @@ import { UserQuery, UserMutation } from './user';
 import { CountryQuery } from './country';
 import { TranslationQuery } from './translation';
 import { ComponentQuery } from './component';
+import { WidgetQuery } from './widget';
 
 import {
     GraphQLSchema,
@@ -24,7 +25,8 @@ const RootQuery = new GraphQLObjectType({
         checkUser: UserQuery.checkUser,
         countries: CountryQuery.countries,
         translations: TranslationQuery.translations,
-        components: ComponentQuery.components
+        elements: ElementQuery.components,
+        widgets: WidgetQuery.widgets
     })
 });
 
