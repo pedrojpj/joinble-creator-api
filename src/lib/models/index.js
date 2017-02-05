@@ -3,8 +3,8 @@ import { AppQuery, AppMutation } from './app';
 import { UserQuery, UserMutation } from './user';
 import { CountryQuery } from './country';
 import { TranslationQuery } from './translation';
-import { ComponentQuery } from './component';
 import { WidgetQuery } from './widget';
+import { ElementQuery } from './element';
 
 import {
     GraphQLSchema,
@@ -25,7 +25,7 @@ const RootQuery = new GraphQLObjectType({
         checkUser: UserQuery.checkUser,
         countries: CountryQuery.countries,
         translations: TranslationQuery.translations,
-        elements: ElementQuery.components,
+        elements: ElementQuery.elements,
         widgets: WidgetQuery.widgets
     })
 });

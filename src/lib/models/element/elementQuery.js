@@ -1,11 +1,11 @@
-import { GraphQLSchema, GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } from 'graphql'
+import { GraphQLList as List } from 'graphql'
 import { ErrorService } from '~/src/lib/services'
-import ElementModel  from './ElementModel'
-import ElementSchema  from './ElementSchema'
+import ElementModel  from './elementModel'
+import ElementSchema  from './elementSchema'
 
 const ElementQuery = {
     elements: {
-        type: new GraphQLList(ElementSchema),
+        type: new List(ElementSchema),
         resolve(root) {
             ErrorService.secure(root);
             return ElementModel.find();

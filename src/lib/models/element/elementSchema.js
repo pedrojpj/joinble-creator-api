@@ -1,29 +1,35 @@
-import { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLNonNull, GraphQLID, GraphQLList } from 'graphql'
+import { 
+    GraphQLObjectType as ObjectType, 
+    GraphQLString as String, 
+    GraphQLNonNull as Null, 
+    GraphQLID as ID, 
+    GraphQLList as List 
+} from 'graphql'
 
-export const ElementSchema = new GraphQLObjectType({
+export const ElementSchema = new ObjectType({
     name: 'Element',
     description: 'This represent a Element',
     fields: {
         id: {
-            type: new GraphQLNonNull(GraphQLID)
+            type: new Null(ID)
         },
         name: {
-            type: GraphQLString
+            type: String
         },
         description: {
-            type: GraphQLString
+            type: String
         },
         type: {
-            type: GraphQLString
+            type: String
         },
         selector: {
-            type: GraphQLString
+            type: String
         },
         childs: {
-            type: new GraphQLList(GraphQLString)
+            type: new List(String)
         },
         updateAt: {
-            type: GraphQLString
+            type: String
         }
     }
 })
