@@ -3,6 +3,7 @@ import {
     GraphQLInt as Integer,
     GraphQLString as String,
     GraphQLNonNull as Null,
+    GraphQLList as List,
     GraphQLID as ID
 } from 'graphql';
 
@@ -24,7 +25,6 @@ const ContentSchema = new ObjectType({
     }
 })
 
-
 const WidgetSchema = new ObjectType({
     name: 'Widget',
     description: 'This represent a Widget',
@@ -39,7 +39,7 @@ const WidgetSchema = new ObjectType({
             type: String
         },
         content: {
-            type: ContentSchema
+            type: new List(ContentSchema)
         },
         country: {
             type: String
@@ -49,7 +49,5 @@ const WidgetSchema = new ObjectType({
         }
     }
 })
-
-
 
 export default WidgetSchema

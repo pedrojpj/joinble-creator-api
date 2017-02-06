@@ -9,7 +9,11 @@ const WidgetSchema = new mongoose.Schema({
     description: {
         type: String
     },
-    content: mongoose.Schema.Types.Mixed,
+    repeat: {
+        type: Boolean,
+        default: false
+    },
+    content: [],
     styles: {},
     selector: {
         type: String,

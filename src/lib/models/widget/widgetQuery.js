@@ -12,8 +12,8 @@ const WidgetQuery = {
     widgets: {
         type: new List(WidgetSchema),
         resolve(root, args) {
-            ErrorService.secure(root);
-            return WidgetSchema.find();
+            //ErrorService.secure(root);
+            return WidgetModel.find();
         }
     }
 }

@@ -26,8 +26,6 @@ async function generateUser() {
     }
 }
 
-
-
 async function generateElements() {
     for (let element of ElementsData.elements) {
         let elem = await CheckComponent(element);
@@ -46,7 +44,12 @@ async function generateElements() {
 
 async function generateWidgets() {
     for (let widget of WidgetsData.widgets) {
+
+        console.log(widget.selector);
+
         let wg = await WidgetModel.findOne({selector: widget.selector})
+        console.log(wg);
+        console.log(widget);
 
         if (wg) {
             promises.push(
@@ -60,26 +63,30 @@ async function generateWidgets() {
     }
 }
 
-
-generateUser();
-generateElements();
-generateWidgets();
-
 async function CheckComponent(elem) {
     let query = await ElementModel.findOne({ name: elem.name });
     return query;
 }
 
+async function executeTasks() {
 
-//////////
-// DONE //
-//////////
-Promise.all(promises)
-.then(function(){
-	console.log('All done');
-    process.exit();
-})
-.catch(function(err){
-	console.log(err);
-    process.exit();
-})
+    await generateUser();
+    await generateElements();
+    await generateWidgets();
+
+    Promise.all(promises)
+        .then(function(){
+            console.log('All done');
+            process.exit();
+        })
+        .catch(function(err){
+            console.log(err);
+            process.exit();
+        })
+}
+
+
+executeTasks();
+
+
+

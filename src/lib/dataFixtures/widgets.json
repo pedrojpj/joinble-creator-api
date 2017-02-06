@@ -4,6 +4,7 @@
             "name" : "Seo Content",
             "selector" : "seo",
             "description" : "Widget to insert seo content on the page",
+            "repeat" : false,
             "content" : [
                 {
                     "component" : "title",
