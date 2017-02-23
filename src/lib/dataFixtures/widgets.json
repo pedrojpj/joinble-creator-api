@@ -4,31 +4,35 @@
             "name" : "Seo Content",
             "selector" : "seo",
             "description" : "Widget to insert seo content on the page",
+            "mode" : "head",
             "repeat" : false,
             "content" : [
                 {
                     "component" : "title",
-                    "name" : "Meta Title",
+                    "name" : "metaTitle",
                     "label" : {
                         "es" : "Introduce el título de la página",
                         "en" : "Enter the title of the page"
-                    }
+                    },
+                    "required" : true
                 },
                 {
                     "component" : "tags",
-                    "name" : "Meta Keywords",
+                    "name" : "metaKeywords",
                     "label" : {
                         "es" : "Introduce las palabras clave de la página",
                         "en" : "Enter the keywords of the page"
-                    }
+                    },
+                    "required" : false
                 },
                 {
                     "component" : "description",
-                    "name" : "Meta Description",
+                    "name" : "metaDescription",
                     "label" : {
                         "es" : "Introduce la descripción de la página",
                         "en" : "Enter the description of the page"
-                    }
+                    },
+                    "required" : true
                 }
 
             ]

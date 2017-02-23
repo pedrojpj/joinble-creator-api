@@ -13,6 +13,10 @@ const WidgetSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    mode: {
+        type: String,
+        required: true
+    },
     content: [],
     styles: {},
     selector: {

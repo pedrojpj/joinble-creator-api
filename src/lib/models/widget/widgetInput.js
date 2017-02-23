@@ -1,18 +1,17 @@
 import {
-    GraphQLObjectType as ObjectType,
-    GraphQLInt as Integer,
+    GraphQLNonNull as NonNull,
     GraphQLString as String,
-    GraphQLNonNull as Null,
-    GraphQLList as List,
+    GraphQlInt as Int,
+    GraphQLInputObjectType as InputObjectType,
+    GraphQLBoolean as Boolean,
     GraphQLID as ID,
-    GraphQLBoolean as Boolean
+    GraphQLList as List
 } from 'graphql';
 
-import { TranslationSchema } from '../translation';
+import { TranslationInput } from '../translation'
 
-const ContentSchema = new ObjectType({
-    name: 'Content',
-    description: 'This represent a Content of Widget',
+const ContentInput = new InputObjectType({
+    name: 'ContentInput',
     fields: {
         component: {
             type: String
@@ -21,7 +20,7 @@ const ContentSchema = new ObjectType({
             type: String
         },
         label : {
-            type: TranslationSchema
+            type: TranslationInput
         },
         required: {
             type: Boolean
@@ -29,12 +28,11 @@ const ContentSchema = new ObjectType({
     }
 })
 
-const WidgetSchema = new ObjectType({
-    name: 'Widget',
-    description: 'This represent a Widget',
+const WidgetInput = new InputObjectType({
+    name: 'WidgetInput',
     fields: {
         id: {
-            type: new Null(ID)
+            type: new NonNull(ID)
         },
         name: {
             type: String
@@ -43,7 +41,7 @@ const WidgetSchema = new ObjectType({
             type: String
         },
         content: {
-            type: new List(ContentSchema)
+            type: new List(ContentInput)
         },
         repeat: {
             type: Boolean
@@ -54,4 +52,4 @@ const WidgetSchema = new ObjectType({
     }
 })
 
-export default WidgetSchema
+export default WidgetInput;

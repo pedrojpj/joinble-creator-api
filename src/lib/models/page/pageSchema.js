@@ -1,41 +1,47 @@
 import {
-    GraphQLObjectType,
-    GraphQLInt,
-    GraphQLString,
-    GraphQLNonNull,
-    GraphQLBoolean,
-    GraphQLID
+    GraphQLObjectType as ObjectType,
+    GraphQLInt as Int,
+    GraphQLString as String,
+    GraphQLNonNull as NonNull,
+    GraphQLBoolean as Boolean,
+    GraphQLID as ID,
+    GraphQLList as List
 } from 'graphql';
 
 import { SeoSchema } from '../seo';
 
-export const PageSchema = new GraphQLObjectType({
+import { WidgetSchema } from '../widget';
+
+export const PageSchema = new ObjectType({
     name: 'Page',
     description: 'This represent a Page',
     fields: {
         id: {
-            type: new GraphQLNonNull(GraphQLID)
+            type: new NonNull(ID)
         },
         name: {
-            type:  GraphQLString
+            type:  String
         },
         slug: {
-            type: GraphQLString
+            type: String
         },
         app: {
-            type: GraphQLID
+            type: ID
         },
         active: {
-            type: GraphQLBoolean
+            type: Boolean
         },
         primary: {
-            type: GraphQLBoolean
+            type: Boolean
         },
         createdAt: {
-            type: GraphQLString
+            type: String
         },
         updateAt: {
-            type: GraphQLString
+            type: String
+        },
+        widgets: {
+            type: new List(WidgetSchema)
         }
     }
 })
