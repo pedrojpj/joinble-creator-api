@@ -19,12 +19,15 @@ const ContentInput = new InputObjectType({
         name: {
             type: String
         },
+        value: {
+            type: String
+        },
         label : {
             type: TranslationInput
         },
         required: {
             type: Boolean
-        }
+        },
     }
 })
 
@@ -32,22 +35,22 @@ const WidgetInput = new InputObjectType({
     name: 'WidgetInput',
     fields: {
         id: {
-            type: new NonNull(ID)
+            type: new NonNull(String)
         },
         name: {
             type: String
         },
         description: {
-            type: String
+            type: TranslationInput
         },
         content: {
             type: new List(ContentInput)
         },
-        repeat: {
-            type: Boolean
-        },
         mode: {
             type: String
+        },
+        repeat: {
+            type: Boolean
         }
     }
 })

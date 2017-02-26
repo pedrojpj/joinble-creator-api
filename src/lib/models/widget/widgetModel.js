@@ -7,7 +7,7 @@ const WidgetSchema = new mongoose.Schema({
         required: true
     },
     description: {
-        type: String
+        type: {}
     },
     repeat: {
         type: Boolean,

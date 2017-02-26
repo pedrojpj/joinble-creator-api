@@ -3,7 +3,10 @@
         {
             "name" : "Seo Content",
             "selector" : "seo",
-            "description" : "Widget to insert seo content on the page",
+            "description" : {
+                "es" : "Inserta contenido SEO en tu página",
+                "en" : "Widget to insert seo content on the page"
+            },
             "mode" : "head",
             "repeat" : false,
             "content" : [
@@ -35,6 +38,27 @@
                     "required" : true
                 }
 
+            ]
+        },
+        {
+            "name" : "Google Analytics",
+            "selector" : "ga",
+            "description" : {
+                "es" : "Añade el trackeo de Google Analytics en tu página",
+                "en" : "Add the Google Analytics track on your page"
+            },
+            "mode" : "head",
+            "repeat" : false,
+            "content" : [
+                {
+                    "component" : "input",
+                    "name" : "trackerId",
+                    "label" : {
+                        "es" : "Introduce el id de seguimiento de Google Analytics",
+                        "en" : "Enter your Google Analytics tracking id"
+                    },
+                    "required" : true
+                }
             ]
         }
     ]

@@ -25,6 +25,9 @@ const ContentSchema = new ObjectType({
         },
         required: {
             type: Boolean
+        },
+        value: {
+            type: String
         }
     }
 })
@@ -40,7 +43,7 @@ const WidgetSchema = new ObjectType({
             type: String
         },
         description: {
-            type: String
+            type: TranslationSchema
         },
         content: {
             type: new List(ContentSchema)
