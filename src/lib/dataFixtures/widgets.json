@@ -60,6 +60,58 @@
                     "required" : true
                 }
             ]
+        },
+        {
+            "name" : "Gallery",
+            "selector" : "gallery",
+            "description" : {
+                "es" : "Galería de imágenes para mostrar en tu página",
+                "en" : "Image gallery to show on your page"
+            },
+            "mode" : "content",
+            "repeat" : true,
+            "content" : [
+                {
+                    "component" : "image",
+                    "repeat" : true,
+                    "name" : "image",
+                    "label" : {
+                        "es" : "Sube una imagen",
+                        "en" : "Upload an image"
+                    },
+                    "required" : true
+                }
+            ]
+        },
+        {
+            "name" : "Header",
+            "selector" : "header",
+            "description" : {
+                "es" : "Cabecera de la página",
+                "en" : "Page Header"
+            },
+            "mode" : "content",
+            "repeat" : false,
+            "content" : [
+                {
+                    "component" : "image",
+                    "name" : "image",
+                    "label" : {
+                        "es" : "Sube una imagen",
+                        "en" : "Upload an image"
+                    },
+                    "required" : true
+                },
+                {
+                    "component" : "title",
+                    "name" : "title",
+                    "label" : {
+                        "es" : "Introduce el título de la página",
+                        "en" : "Enter the title of the page"
+                    },
+                    "required" : true
+                }
+            ]
         }
     ]
 }

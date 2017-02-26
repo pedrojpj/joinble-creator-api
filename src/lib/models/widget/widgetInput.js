@@ -28,6 +28,9 @@ const ContentInput = new InputObjectType({
         required: {
             type: Boolean
         },
+        repeat: {
+            type: Boolean
+        }
     }
 })
 

@@ -28,6 +28,9 @@ const ContentSchema = new ObjectType({
         },
         value: {
             type: String
+        },
+        repeat: {
+            type: Boolean
         }
     }
 })
