@@ -1,6 +1,6 @@
 import {
     GraphQLObjectType as ObjectType,
-    GraphQLInt as Integer,
+    GraphQLInt as Number,
     GraphQLString as String,
     GraphQLNonNull as Null,
     GraphQLList as List,
@@ -9,6 +9,20 @@ import {
 } from 'graphql';
 
 import { TranslationSchema } from '../translation';
+
+const OptionsSchema = new ObjectType({
+    name: 'Options',
+    description: 'Options of Content',
+    fields: {
+        formats: {
+            type: new List(String)
+        },
+        maxSize: {
+            type: Number
+        }
+    }
+});
+
 
 const ContentSchema = new ObjectType({
     name: 'Content',
@@ -22,6 +36,9 @@ const ContentSchema = new ObjectType({
         },
         label : {
             type: TranslationSchema
+        },
+        options: {
+            type: OptionsSchema
         },
         required: {
             type: Boolean

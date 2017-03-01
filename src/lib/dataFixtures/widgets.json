@@ -73,6 +73,10 @@
             "content" : [
                 {
                     "component" : "image",
+                    "options" : {
+                        "formats" : ["jpg", "png"],
+                        "maxSize" : 2000000
+                    },
                     "repeat" : true,
                     "name" : "image",
                     "label" : {
