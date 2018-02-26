@@ -1,39 +1,39 @@
-import {
-    GraphQLSchema,
-    GraphQLObjectType,
-    GraphQLList,
-    GraphQLID,
-    GraphQLNonNull
-} from 'graphql';
+const {
+  GraphQLSchema,
+  GraphQLObjectType,
+  GraphQLList,
+  GraphQLID,
+  GraphQLNonNull
+} = require('graphql');
 
-import PageModel from './pageModel';
-import { PageSchema } from './pageSchema';
+const PageModel = require('./pageModel');
+const PageSchema = require('./pageSchema');
 
-import { ErrorService } from '~/src/lib/services';
+const { ErrorService } = require('../../../lib/services');
 
 const PageQuery = {
-    pages: {
-        type: new GraphQLList(PageSchema),
-        args: {
-            app: {
-                type: new GraphQLNonNull(GraphQLID)
-            }
-        },
-        resolve(root, args) {
-            ErrorService.secure(root);
-            return PageModel.find(args);
-        }
+  pages: {
+    type: new GraphQLList(PageSchema),
+    args: {
+      app: {
+        type: new GraphQLNonNull(GraphQLID)
+      }
     },
-    page: {
-        type: PageSchema,
-        args: {
-            id: { type: new GraphQLNonNull(GraphQLID)}
-        },
-        async resolve(root, args) {
-            ErrorService.secure(root);
-            return await PageModel.findOne({_id: args.id});
-        }
+    resolve(root, args) {
+      ErrorService.secure(root);
+      return PageModel.find(args);
     }
-}
+  },
+  page: {
+    type: PageSchema,
+    args: {
+      id: { type: new GraphQLNonNull(GraphQLID) }
+    },
+    async resolve(root, args) {
+      ErrorService.secure(root);
+      return await PageModel.findOne({ _id: args.id });
+    }
+  }
+};
 
-export default PageQuery;
+module.exports = PageQuery;

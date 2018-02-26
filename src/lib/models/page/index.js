@@ -1,13 +1,13 @@
-import PageQuery from './pageQuery';
-import PageMutation from './pageMutation';
-import PageSchema from './pageSchema';
-import PageModel from './pageModel';
-import PageInput from './pageInput';
+const PageQuery = require('./pageQuery');
+const PageMutation = require('./pageMutation');
+const PageSchema = require('./pageSchema');
+const PageModel = require('./pageModel');
+const PageInput = require('./pageInput');
 
-export {
-    PageQuery,
-    PageMutation,
-    PageSchema,
-    PageModel,
-    PageInput
-}
+module.exports = {
+  PageQuery,
+  PageMutation,
+  PageSchema,
+  PageModel,
+  PageInput
+};

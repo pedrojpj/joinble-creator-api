@@ -1,5 +1,5 @@
-import ImageSchema from './imageSchema';
+const ImageSchema = require('./imageSchema');
 
-export {
-    ImageSchema
-}
+module.exports = {
+  ImageSchema
+};

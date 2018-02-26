@@ -1,7 +1,7 @@
-import SeoInput from './seoInput';
-import SeoSchema from './seoSchema';
+const SeoInput = require('./seoInput');
+const SeoSchema = require('./seoSchema');
 
-export {
-    SeoInput,
-    SeoSchema
-}
+module.exports = {
+  SeoInput,
+  SeoSchema
+};

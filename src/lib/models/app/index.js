@@ -1,11 +1,11 @@
-import AppModel  from './appModel'
-import AppMutation  from './appMutation'
-import AppQuery  from './appQuery'
-import AppSchema  from './appSchema'
+const AppModel = require('./appModel');
+const AppMutation = require('./appMutation');
+const AppQuery = require('./appQuery');
+const AppSchema = require('./appSchema');
 
-export {
-    AppQuery,
-    AppMutation,
-    AppSchema,
-    AppModel
-}
+module.exports = {
+  AppQuery,
+  AppMutation,
+  AppSchema,
+  AppModel
+};

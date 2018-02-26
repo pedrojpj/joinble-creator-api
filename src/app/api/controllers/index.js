@@ -1,9 +1,9 @@
-import ApiController from './apiController';
-import UploadController from './uploadController';
-import ImageController from './imageController';
+const ApiController = require('./apiController');
+const UploadController = require('./uploadController');
+const ImageController = require('./imageController');
 
-export {
-    ApiController,
-    UploadController,
-    ImageController
-}
+module.exports = {
+  ApiController,
+  UploadController,
+  ImageController
+};

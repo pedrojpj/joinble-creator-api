@@ -1,21 +1,18 @@
-import {
-    GraphQLList as List,
-    GraphQLBoolean as Boolean
-} from 'graphql';
+const { GraphQLList: List, GraphQLBoolean: Boolean } = require('graphql');
 
-import WidgetModel from './widgetModel';
-import WidgetSchema from './widgetSchema';
+const WidgetModel = require('./widgetModel');
+const WidgetSchema = require('./widgetSchema');
 
-import { ErrorService } from '~/src/lib/services';
+const { ErrorService } = require('../../../lib/services');
 
 const WidgetQuery = {
-    widgets: {
-        type: new List(WidgetSchema),
-        resolve(root, args) {
-            //ErrorService.secure(root);
-            return WidgetModel.find();
-        }
+  widgets: {
+    type: new List(WidgetSchema),
+    resolve(root, args) {
+      //ErrorService.secure(root);
+      return WidgetModel.find();
     }
-}
+  }
+};
 
-export default WidgetQuery;
+module.exports = WidgetQuery;

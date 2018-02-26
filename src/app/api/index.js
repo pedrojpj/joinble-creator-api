@@ -1,9 +1,9 @@
-import handlers from './handlers';
-import middlewares from './middlewares';
-import routes from './routes';
+const handlers = require('./handlers');
+const middlewares = require('./middlewares');
+const routes = require('./routes');
 
-export default {
-    handlers,
-    middlewares,
-    routes
-}
+module.exports = {
+  handlers,
+  middlewares,
+  routes
+};

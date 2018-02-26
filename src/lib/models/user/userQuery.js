@@ -1,43 +1,41 @@
-import {
-    GraphQLSchema,
-    GraphQLObjectType,
-    GraphQLList,
-    GraphQLNonNull,
-    GraphQLString,
-    GraphQLBoolean
-} from 'graphql';
+const {
+  GraphQLSchema,
+  GraphQLObjectType,
+  GraphQLList,
+  GraphQLNonNull,
+  GraphQLString,
+  GraphQLBoolean
+} = require('graphql');
 
-import UserModel from './userModel';
-import UserSchema from './userSchema';
+const UserModel = require('./userModel');
+const UserSchema = require('./userSchema');
 
 const UserQuery = {
-    users: {
-        type: new GraphQLList(UserSchema),
-        resolve(root, args) {
-            return UserModel.find();
-        }
-    },
-    checkUser: {
-        type: new GraphQLObjectType({
-            name: 'checkUser',
-            fields: {
-                status: {
-                    type: GraphQLBoolean
-                }
-            }
-        }),
-        resolve(root, args) {
-
-            let status = true;
-
-            if (!root.user) {
-                status = false;
-            }
-
-            return { status }
-
-        }
+  users: {
+    type: new GraphQLList(UserSchema),
+    resolve(root, args) {
+      return UserModel.find();
     }
-}
+  },
+  checkUser: {
+    type: new GraphQLObjectType({
+      name: 'checkUser',
+      fields: {
+        status: {
+          type: GraphQLBoolean
+        }
+      }
+    }),
+    resolve(root, args) {
+      let status = true;
 
-export default UserQuery;
+      if (!root.user) {
+        status = false;
+      }
+
+      return { status };
+    }
+  }
+};
+
+module.exports = UserQuery;

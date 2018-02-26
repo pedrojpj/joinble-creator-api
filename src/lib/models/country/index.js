@@ -1,7 +1,7 @@
-import CountrySchema from './countrySchema';
-import CountryQuery from './countryQuery';
+const CountrySchema = require('./countrySchema');
+const CountryQuery = require('./countryQuery');
 
-export {
-    CountrySchema,
-    CountryQuery
-}
+module.exports = {
+  CountrySchema,
+  CountryQuery
+};

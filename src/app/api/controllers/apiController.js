@@ -1,12 +1,10 @@
-import { JsonService } from '~/src/lib/services';
+const { JsonService } = require('../../../lib/services');
 
 class ApiController {
-    constructor() {
-
-    }
-    index(req, res) {
-        res.json(JsonService.response('Hello Api'))
-    }
+  constructor() {}
+  index(req, res) {
+    res.json(JsonService.response('Hello Api'));
+  }
 }
 
-export default new ApiController();
+module.exports = new ApiController();

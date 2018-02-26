@@ -1,19 +1,19 @@
-import DbService from './dbService';
-import JsonService from './jsonService';
-import SecureService from './secureService';
-import ApiService from './apiService';
-import ErrorService from './errorService';
-import EmailService from './emailService';
-import TranslationService from './translationService';
-import UtilsService from './utilsService';
+const DbService = require('./dbService');
+const JsonService = require('./jsonService');
+const SecureService = require('./secureService');
+const ApiService = require('./apiService');
+const ErrorService = require('./errorService');
+const EmailService = require('./emailService');
+const TranslationService = require('./translationService');
+const UtilsService = require('./utilsService');
 
-export {
-    DbService,
-    JsonService,
-    SecureService,
-    ApiService,
-    ErrorService,
-    EmailService,
-    TranslationService,
-    UtilsService
-}
+module.exports = {
+  DbService,
+  JsonService,
+  SecureService,
+  ApiService,
+  ErrorService,
+  EmailService,
+  TranslationService,
+  UtilsService
+};

@@ -1,11 +1,11 @@
-import UserModel from './userModel';
-import UserQuery from './userQuery';
-import UserSchema from './userSchema';
-import UserMutation from './userMutation';
+const UserModel = require('./userModel');
+const UserQuery = require('./userQuery');
+const UserSchema = require('./userSchema');
+const UserMutation = require('./userMutation');
 
-export {
-    UserModel,
-    UserQuery,
-    UserSchema,
-    UserMutation
-}
+module.exports = {
+  UserModel,
+  UserQuery,
+  UserSchema,
+  UserMutation
+};
