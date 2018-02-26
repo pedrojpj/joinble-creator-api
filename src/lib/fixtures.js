@@ -1,92 +1,75 @@
-import ElementsData  from './dataFixtures/elements.json'
-import ElementModel from './models/element/elementModel'
+const ElementsData = require('./dataFixtures/elements.json');
+const ElementModel = require('./models/element/elementModel');
 
-import WidgetsData  from './dataFixtures/widgets.json'
+const WidgetsData = require('./dataFixtures/widgets.json');
 
-import { UserModel } from './models/user'
-import { WidgetModel } from './models/widget';
-import { DbService, SecureService } from './services'
+const { UserModel } = require('./models/user');
+const { WidgetModel } = require('./models/widget');
+const { DbService, SecureService } = require('./services');
+
+const debug = require('debug')('JOINBLE');
 
 DbService.connect();
 
 let promises = [];
 
 async function generateUser() {
+  let user = await UserModel.findOne({ name: 'Pedro José Peña' });
 
-    let user =  await UserModel.findOne({name: 'Pedro José Peña'});
-
-    if (!user) {
-        promises.push(
-            UserModel.create({
-                name: 'Pedro José Peña',
-                email: 'pedro.jose@gigigo.com',
-                password: SecureService.encodePassword('gigigo')
-            })
-        );
-    }
+  if (!user) {
+    promises.push(
+      UserModel.create({
+        name: 'Pedro José Peña',
+        email: 'malagactiva@gmail.com',
+        password: SecureService.encodePassword('1234')
+      })
+    );
+  }
 }
 
 async function generateElements() {
-    for (let element of ElementsData.elements) {
-        let elem = await CheckComponent(element);
+  for (let element of ElementsData.elements) {
+    let elem = await CheckComponent(element);
 
-        if (elem) {
-            promises.push(
-                ElementModel.findOneAndUpdate({name: elem.name}, {$set: element})
-            )
-        } else {
-            promises.push(
-                ElementModel.create(element)
-            )
-        }
+    if (elem) {
+      promises.push(ElementModel.findOneAndUpdate({ name: elem.name }, { $set: element }));
+    } else {
+      promises.push(ElementModel.create(element));
     }
+  }
 }
 
 async function generateWidgets() {
-    for (let widget of WidgetsData.widgets) {
+  for (let widget of WidgetsData.widgets) {
+    let wg = await WidgetModel.findOne({ selector: widget.selector });
 
-        console.log(widget.selector);
-
-        let wg = await WidgetModel.findOne({selector: widget.selector})
-        console.log(wg);
-        console.log(widget);
-
-        if (wg) {
-            promises.push(
-                WidgetModel.findOneAndUpdate({selector: widget.selector}, {$set: widget})
-            )
-        } else {
-            promises.push(
-                WidgetModel.create(widget)
-            )
-        }
+    if (wg) {
+      promises.push(WidgetModel.findOneAndUpdate({ selector: widget.selector }, { $set: widget }));
+    } else {
+      promises.push(WidgetModel.create(widget));
     }
+  }
 }
 
 async function CheckComponent(elem) {
-    let query = await ElementModel.findOne({ name: elem.name });
-    return query;
+  let query = await ElementModel.findOne({ name: elem.name });
+  return query;
 }
 
 async function executeTasks() {
+  await generateUser();
+  await generateElements();
+  await generateWidgets();
 
-    await generateUser();
-    await generateElements();
-    await generateWidgets();
-
-    Promise.all(promises)
-        .then(function(){
-            console.log('All done');
-            process.exit();
-        })
-        .catch(function(err){
-            console.log(err);
-            process.exit();
-        })
+  Promise.all(promises)
+    .then(function() {
+      console.log('All done');
+      process.exit();
+    })
+    .catch(function(err) {
+      console.log(err);
+      process.exit();
+    });
 }
 
-
 executeTasks();
-
-
-

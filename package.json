@@ -1,63 +1,53 @@
 {
-   "name": "joinble-creator-api",
-   "version": "0.0.1",
-   "description": "",
-   "main": "build/index.js",
-   "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "start:dev": "MONGO_URI=mongodb://localhost:27017/joinble DEBUG=JOINBLE* babel-watch src/index.js",
-      "start": "node build/index.js",
-      "build": "babel src -d build",
-      "fixtures": "babel-node src/lib/fixtures.js",
-      "docker-run": "docker run -e MONGO_URI:mongodb://localhost:27017/joinble -e PORT=5000 web"
-   },
-   "repository": {
-      "type": "git",
-      "url": "git+https://minmaster@bitbucket.org/minmaster/joinble-creator-api.git.git"
-   },
-   "author": "Joinble <joinblecreator@gmail.com>",
-   "license": "ISC",
-   "bugs": {
-      "url": "https://minmaster@bitbucket.org/minmaster/joinble-creator-api.git/issues"
-   },
-   "homepage": "https://minmaster@bitbucket.org/minmaster/joinble-creator-api.git#readme",
-   "dependencies": {
-      "body-parser": "1.17.2",
-      "cors": "2.8.4",
-      "crypto": "0.0.3",
-      "debug": "2.6.8",
-      "express": "4.15.3",
-      "express-graphql": "0.6.6",
-      "graphql": "0.10.5",
-      "graphql-errors": "2.1.0",
-      "i18n": "0.8.3",
-      "jsonwebtoken": "7.4.1",
-      "mime": "1.3.6",
-      "moment": "2.18.1",
-      "mongoose": "4.11.4",
-      "multer": "1.3.0",
-      "node-mailer": "0.1.1",
-      "node-uuid": "1.4.8",
-      "nodemailer-ses-transport": "1.5.1",
-      "passport": "0.3.2",
-      "passport-jwt": "2.2.1",
-      "passport-local": "1.0.0",
-      "password-generator": "2.1.0",
-      "request": "2.81.0",
-      "validator": "8.0.0"
-   },
-   "devDependencies": {
-      "babel-cli": "6.24.1",
-      "babel-core": "6.25.0",
-      "babel-node-debug": "2.0.0",
-      "babel-plugin-module-resolver": "2.7.1",
-      "babel-plugin-syntax-async-functions": "6.13.0",
-      "babel-polyfill": "6.23.0",
-      "babel-preset-es2015": "6.24.1",
-      "babel-preset-es2015-node4": "2.1.1",
-      "babel-preset-stage-2": "6.24.1",
-      "babel-register": "6.24.1",
-      "babel-root-import": "4.1.8",
-      "babel-watch": "2.0.7"
-   }
+  "name": "joinble-creator-api",
+  "version": "0.0.1",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "MONGO_URI=mongodb://localhost:27017/joinble DEBUG=JOINBLE* nodemon src/index.js",
+    "start": "node build/index.js",
+    "build": "babel src -d build",
+    "fixtures": "DEBUG=JOINBLE* MONGO_URI=mongodb://localhost:27017/joinble node src/lib/fixtures.js",
+    "docker-run": "docker run -e MONGO_URI:mongodb://localhost:27017/joinble -e PORT=5000 web"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://minmaster@bitbucket.org/minmaster/joinble-creator-api.git.git"
+  },
+  "author": "Joinble <joinblecreator@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://minmaster@bitbucket.org/minmaster/joinble-creator-api.git/issues"
+  },
+  "homepage": "https://minmaster@bitbucket.org/minmaster/joinble-creator-api.git#readme",
+  "dependencies": {
+    "body-parser": "1.17.2",
+    "cors": "2.8.4",
+    "crypto": "0.0.3",
+    "debug": "2.6.8",
+    "express": "4.15.3",
+    "express-graphql": "0.6.6",
+    "graphql": "0.10.5",
+    "graphql-errors": "2.1.0",
+    "i18n": "0.8.3",
+    "jsonwebtoken": "7.4.1",
+    "mime": "1.3.6",
+    "moment": "2.18.1",
+    "mongoose": "5.0.7",
+    "multer": "1.3.0",
+    "node-mailer": "0.1.1",
+    "node-uuid": "1.4.8",
+    "nodemailer-ses-transport": "1.5.1",
+    "passport": "0.3.2",
+    "passport-jwt": "2.2.1",
+    "passport-local": "1.0.0",
+    "password-generator": "2.1.0",
+    "request": "2.81.0",
+    "validator": "8.0.0"
+  },
+  "devDependencies": {
+    "node-debug": "0.1.0",
+    "nodemon": "^1.15.1"
+  }
 }

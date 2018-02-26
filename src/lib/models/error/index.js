@@ -1,5 +1,5 @@
-import ErrorSchema from './errorSchema';
+const ErrorSchema = require('./errorSchema');
 
-export {
-    ErrorSchema
-}
+module.exports = {
+  ErrorSchema
+};

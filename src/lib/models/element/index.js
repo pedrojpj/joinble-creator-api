@@ -1,9 +1,9 @@
-import ElementModel from './elementModel';
-import ElementSchema from './elementSchema';
-import ElementQuery from './elementQuery';
+const ElementModel = require('./elementModel');
+const ElementSchema = require('./elementSchema');
+const ElementQuery = require('./elementQuery');
 
-export {
-    ElementModel,
-    ElementSchema,
-    ElementQuery
-}
+module.exports = {
+  ElementModel,
+  ElementSchema,
+  ElementQuery
+};

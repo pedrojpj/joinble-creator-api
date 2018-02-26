@@ -1,13 +1,11 @@
-import path from 'path';
-import config from '~/src/lib/config';
+const path = require('path');
+const config = require('../../../lib/config');
 
 class ImageController {
-    constructor() {
-
-    }
-    index(req, res) {
-        res.sendfile(req.params.image, { root: config.uploadPath})
-    }
+  constructor() {}
+  index(req, res) {
+    res.sendfile(req.params.image, { root: config.uploadPath });
+  }
 }
 
-export default new ImageController();
+module.exports = new ImageController();

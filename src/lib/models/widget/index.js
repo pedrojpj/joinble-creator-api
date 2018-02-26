@@ -1,11 +1,11 @@
-import WidgetModel from './widgetModel';
-import WidgetQuery from './widgetQuery';
-import WidgetSchema from './widgetSchema';
-import WidgetInput from './widgetInput';
+const WidgetModel = require('./widgetModel');
+const WidgetQuery = require('./widgetQuery');
+const WidgetSchema = require('./widgetSchema');
+const WidgetInput = require('./widgetInput');
 
-export {
-    WidgetModel,
-    WidgetQuery,
-    WidgetSchema,
-    WidgetInput
-}
+module.exports = {
+  WidgetModel,
+  WidgetQuery,
+  WidgetSchema,
+  WidgetInput
+};

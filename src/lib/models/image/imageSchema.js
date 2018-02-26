@@ -1,13 +1,12 @@
-import {
+const {
     GraphQLObjectType,
     GraphQLInt,
     GraphQLString,
     GraphQLNonNull,
     GraphQLID
-} from 'graphql';
+} = require('graphql');
 
-
-import config from '~/src/lib/config';
+const config = require('../../../lib/config');
 
 const Image = new GraphQLObjectType({
     name: 'Image',
@@ -28,4 +27,4 @@ const Image = new GraphQLObjectType({
     }
 })
 
-export default Image;
+module.exports = Image;

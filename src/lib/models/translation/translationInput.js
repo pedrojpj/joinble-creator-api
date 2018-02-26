@@ -1,14 +1,10 @@
-import {
-    GraphQLInputObjectType,
-    GraphQLString
-} from 'graphql';
+const { GraphQLInputObjectType, GraphQLString } = require('graphql');
 
-import { TranslationService } from '~/src/lib/services';
-
+const { TranslationService } = require('../../../lib/services');
 
 const TranslationInput = new GraphQLInputObjectType({
-    name: 'TranslationInput',
-    fields: TranslationService.generateSchema()
-})
+  name: 'TranslationInput',
+  fields: TranslationService.generateSchema()
+});
 
-export default TranslationInput;
+module.exports = TranslationInput;

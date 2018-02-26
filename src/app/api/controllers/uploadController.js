@@ -1,35 +1,32 @@
-import { JsonService } from '~/src/lib/services';
-import multer from 'multer';
-import uuid from 'node-uuid';
-import path from 'path';
+const { JsonService } = require('../../../lib/services');
+const multer = require('multer');
+const uuid = require('node-uuid');
+const path = require('path');
 
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, './uploads')
-    },
-    filename: function(req, file, cb) {
-        cb(null, uuid.v4() + path.extname(file.originalname));
-    }
+  destination: function(req, file, cb) {
+    cb(null, './uploads');
+  },
+  filename: function(req, file, cb) {
+    cb(null, uuid.v4() + path.extname(file.originalname));
+  }
 });
 
-const upload = multer({storage: storage}).single('file');
+const upload = multer({ storage: storage }).single('file');
 
 class UploadControler {
-    constructor() {
+  constructor() {}
+  upload(req, res) {
+    upload(req, res, function(err) {
+      const file = req.file;
 
-    }
-    upload(req, res) {
-        upload(req, res, function (err) {
+      if (err) {
+        return res.json(JsonService.errorResponse(500, 'Error Generic'));
+      }
 
-            const file = req.file;
-
-            if (err) {
-                return res.json(JsonService.errorResponse(500, 'Error Generic'))
-            }
-
-            res.json(JsonService.response({ file: file.filename }));
-        });
-    }
+      res.json(JsonService.response({ file: file.filename }));
+    });
+  }
 }
 
-export default new UploadControler();
+module.exports = new UploadControler();

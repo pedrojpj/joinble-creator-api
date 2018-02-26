@@ -1,7 +1,7 @@
-import TokenSchema from './tokenSchema';
-import TokenModel from './tokenModel';
+const TokenSchema = require('./tokenSchema');
+const TokenModel = require('./tokenModel');
 
-export {
-    TokenSchema,
-    TokenModel
-}
+module.exports = {
+  TokenSchema,
+  TokenModel
+};

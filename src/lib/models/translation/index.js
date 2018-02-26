@@ -1,9 +1,5 @@
-import TranslationSchema from './translationSchema';
-import TranslationInput from './translationInput';
-import TranslationQuery from './translationQuery';
+const TranslationSchema = require('./translationSchema');
+const TranslationInput = require('./translationInput');
+const TranslationQuery = require('./translationQuery');
 
-export {
-    TranslationSchema,
-    TranslationInput,
-    TranslationQuery
-}
+module.exports = { TranslationSchema, TranslationInput, TranslationQuery };

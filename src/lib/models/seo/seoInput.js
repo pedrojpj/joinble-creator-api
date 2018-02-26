@@ -1,22 +1,20 @@
-import {
-    GraphQLInputObjectType
-} from 'graphql';
+const { GraphQLInputObjectType } = require('graphql');
 
-import { TranslationInput } from '../translation';
+const { TranslationInput } = require('../translation');
 
 const SeoInput = new GraphQLInputObjectType({
-    name: 'SeoInput',
-    fields: {
-        title: {
-            type: TranslationInput
-        },
-        description: {
-            type: TranslationInput
-        },
-        keywords: {
-            type: TranslationInput
-        }
+  name: 'SeoInput',
+  fields: {
+    title: {
+      type: TranslationInput
+    },
+    description: {
+      type: TranslationInput
+    },
+    keywords: {
+      type: TranslationInput
     }
-})
+  }
+});
 
-export default SeoInput;
+module.exports = SeoInput;
