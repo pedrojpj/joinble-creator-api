@@ -47,7 +47,13 @@
     "validator": "8.0.0"
   },
   "devDependencies": {
+    "cz-conventional-changelog": "^2.1.0",
     "node-debug": "0.1.0",
     "nodemon": "^1.15.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }
