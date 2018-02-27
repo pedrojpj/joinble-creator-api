@@ -17,12 +17,34 @@ const UserQuery = {
       return UserModel.find();
     }
   },
+  getUser: {
+    type: new GraphQLObjectType({
+      name: 'getUser',
+      fields: {
+        name: {
+          type: GraphQLString
+        },
+        email: {
+          type: GraphQLString
+        }
+      }
+    }),
+    resolve(root, args) {
+      return {
+        name: root.user.name,
+        email: root.user.email
+      };
+    }
+  },
   checkUser: {
     type: new GraphQLObjectType({
       name: 'checkUser',
       fields: {
         status: {
           type: GraphQLBoolean
+        },
+        user: {
+          type: UserSchema
         }
       }
     }),

@@ -12,21 +12,10 @@ const {
 
 const UserModel = require('./userModel');
 const UserSchema = require('./userSchema');
+const { UserInput, LoginInput } = require('./userInput');
 const { SecureService, ErrorService } = require('../../../lib/services');
 const { ErrorSchema } = require('../error');
 const { TokenSchema, TokenModel } = require('../token');
-
-const UserInput = new GraphQLInputObjectType({
-  name: 'UserInput',
-  fields: {
-    name: { type: new GraphQLNonNull(GraphQLString) },
-    email: { type: new GraphQLNonNull(GraphQLString) },
-    address: { type: new GraphQLNonNull(GraphQLString) },
-    city: { type: new GraphQLNonNull(GraphQLString) },
-    country: { type: new GraphQLNonNull(GraphQLString) },
-    password: { type: new GraphQLNonNull(GraphQLString) }
-  }
-});
 
 const UserMutation = {
   login: {
@@ -38,19 +27,16 @@ const UserMutation = {
       }
     }),
     args: {
-      email: {
-        type: new GraphQLNonNull(GraphQLString)
-      },
-      password: {
-        type: new GraphQLNonNull(GraphQLString)
+      login: {
+        type: LoginInput
       }
     },
     async resolve(root, args) {
       let user = null;
       let token = null;
 
-      args.password = SecureService.encodePassword(args.password);
-      user = await UserModel.findOne(args);
+      const login = { ...args.login, password: SecureService.encodePassword(args.login.password) };
+      user = await UserModel.findOne(login);
 
       if (!user) {
         return ErrorService.getErrorMessage(1001);
