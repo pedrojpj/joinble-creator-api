@@ -22,6 +22,7 @@ const UserMutation = {
     type: new GraphQLObjectType({
       name: 'Login',
       fields: {
+        errors: { type: new GraphQLList(ErrorSchema) },
         user: { type: UserSchema },
         token: { type: TokenSchema }
       }
@@ -32,22 +33,30 @@ const UserMutation = {
       }
     },
     async resolve(root, args) {
+      let errors = [];
       let user = null;
       let token = null;
 
       const login = { ...args.login, password: SecureService.encodePassword(args.login.password) };
-      user = await UserModel.findOne(login);
 
-      if (!user) {
-        return ErrorService.getErrorMessage(1001);
+      const userEmail = await UserModel.findOne({ email: login.email });
+
+      if (!userEmail) {
+        errors.push(...[{ key: 'email', value: 'This user does not exist' }]);
+      } else {
+        user = await UserModel.findOne(login);
+
+        if (!user) {
+          errors.push(...[{ key: 'password', value: 'The password is incorrect' }]);
+        } else {
+          token = SecureService.getToken({ id: user._id.toString() });
+          await TokenModel.find({ userId: user._id }).remove();
+          let newToken = new TokenModel({ userId: user._id, token: token, lastLogin: new Date() });
+          token = await newToken.save();
+        }
       }
 
-      token = SecureService.getToken({ id: user._id.toString() });
-      await TokenModel.find({ userId: user._id }).remove();
-      let newToken = new TokenModel({ userId: user._id, token: token, lastLogin: new Date() });
-      token = await newToken.save();
-
-      return { user, token };
+      return { errors, user, token };
     }
   },
   createUser: {
@@ -72,7 +81,7 @@ const UserMutation = {
       let checkUser = await UserModel.findOne({ email: args.user.email });
 
       if (checkUser) {
-        errors.push(...[{ key: 'email', message: 'This email is already registered' }]);
+        errors.push(...[{ key: 'email', value: 'This email is already registered' }]);
       } else {
         args.user.password = SecureService.encodePassword(args.user.password);
 
@@ -106,20 +115,20 @@ const UserMutation = {
       let user = await UserModel.findOne(args);
 
       if (!user) {
-        errors.push(...[{ key: 'user', message: 'This user does not exist' }]);
+        errors.push(...[{ key: 'email', value: 'This user does not exist' }]);
         status = false;
       } else {
         let newPassword = SecureService.generatePassword();
         let updateUser = await UserModel(args, { password: newPassword });
 
         if (!updateUser) {
-          errors.push(...[{ key: 'user', message: 'Generic error' }]);
+          errors.push(...[{ key: 'user', value: 'Generic error' }]);
         } else {
           status = true;
         }
       }
 
-      return { errors, token, user };
+      return { errors, status };
     }
   },
   logout: {

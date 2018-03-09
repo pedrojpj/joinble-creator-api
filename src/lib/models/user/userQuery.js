@@ -31,8 +31,8 @@ const UserQuery = {
     }),
     resolve(root, args) {
       return {
-        name: root.user.name,
-        email: root.user.email
+        name: root.user ? root.user.name : null,
+        email: root.user ? root.user.email : null
       };
     }
   },

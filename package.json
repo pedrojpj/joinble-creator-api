@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "MONGO_URI=mongodb://localhost:27017/joinble DEBUG=JOINBLE* nodemon src/index.js",
-    "start": "node build/index.js",
+    "start": "node src/index.js",
     "build": "babel src -d build",
     "fixtures": "DEBUG=JOINBLE* MONGO_URI=mongodb://localhost:27017/joinble node src/lib/fixtures.js",
     "docker-run": "docker run -e MONGO_URI:mongodb://localhost:27017/joinble -e PORT=5000 web"
