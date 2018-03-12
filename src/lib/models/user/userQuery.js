@@ -57,6 +57,31 @@ const UserQuery = {
 
       return { status };
     }
+  },
+  checkRecoverPasswordToken: {
+    type: new GraphQLObjectType({
+      name: 'checkRevocerPasswordToken',
+      fields: {
+        status: {
+          type: GraphQLBoolean
+        }
+      }
+    }),
+    args: {
+      token: { type: new GraphQLNonNull(GraphQLString) }
+    },
+    async resolve(root, args) {
+      let status = false;
+      let findUser = await UserModel.findOne({ resetPasswordToken: args.token });
+
+      if (findUser) {
+        status = true;
+      }
+
+      return {
+        status
+      };
+    }
   }
 };
 

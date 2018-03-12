@@ -17,6 +17,9 @@ class SecureService {
       expiresIn: 50000
     });
   }
+  generateTokenPass(email) {
+    return jwt.sign(email, config.secret);
+  }
   verifyToken(token, id) {
     return new Promise((resolve, reject) => {
       jwt.verify(token, config.secret, (err, decoded) => {

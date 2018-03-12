@@ -36,10 +36,7 @@ const RootMutation = new GraphQLObjectType({
     deletePage: PageMutation.deletePage,
     addApp: AppMutation.addApp,
     deleteApp: AppMutation.deleteApp,
-    login: UserMutation.login,
-    logout: UserMutation.logout,
-    createUser: UserMutation.createUser,
-    forgetPassword: UserMutation.forgetPassword
+    ...UserMutation
   })
 });
 

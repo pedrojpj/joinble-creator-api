@@ -13,7 +13,7 @@ const {
 const UserModel = require('./userModel');
 const UserSchema = require('./userSchema');
 const { UserInput, LoginInput } = require('./userInput');
-const { SecureService, ErrorService } = require('../../../lib/services');
+const { SecureService, ErrorService, EmailService } = require('../../../lib/services');
 const { ErrorSchema } = require('../error');
 const { TokenSchema, TokenModel } = require('../token');
 
@@ -118,10 +118,12 @@ const UserMutation = {
         errors.push(...[{ key: 'email', value: 'This user does not exist' }]);
         status = false;
       } else {
-        let newPassword = SecureService.generatePassword();
-        let updateUser = await UserModel(args, { password: newPassword });
+        let resetPasswordToken = SecureService.generateTokenPass(user.email);
+        let userUpdate = await UserModel.updateOne({ email: user.email }, { resetPasswordToken });
 
-        if (!updateUser) {
+        EmailService.sendForgetPassword(user.email, resetPasswordToken);
+
+        if (!userUpdate) {
           errors.push(...[{ key: 'user', value: 'Generic error' }]);
         } else {
           status = true;
@@ -152,6 +154,55 @@ const UserMutation = {
       status = true;
 
       return { status };
+    }
+  },
+  changePassword: {
+    type: new GraphQLObjectType({
+      name: 'changePassword',
+      fields: {
+        errors: { type: new GraphQLList(ErrorSchema) },
+        status: { type: GraphQLBoolean }
+      }
+    }),
+    args: {
+      token: {
+        type: new GraphQLNonNull(GraphQLString)
+      },
+      password: {
+        type: new GraphQLNonNull(GraphQLString)
+      }
+    },
+    async resolve(root, args) {
+      let errors = [];
+      let status;
+
+      const parameters = { resetPasswordToken: args.token };
+
+      const findUser = await UserModel.findOne(parameters);
+
+      if (findUser) {
+        if (findUser.password === SecureService.encodePassword(args.password)) {
+          errors.push(
+            ...[{ key: 'repeatPassword', value: 'The new password cannot match the old one' }]
+          );
+          status = false;
+        } else {
+          const updateUser = await UserModel.updateOne(parameters, {
+            password: SecureService.encodePassword(args.password),
+            resetPasswordToken: null
+          });
+
+          if (updateUser) {
+            status = true;
+          } else {
+            ErrorService.getError();
+          }
+        }
+      } else {
+        ErrorService.getError();
+      }
+
+      return { errors, status };
     }
   }
 };

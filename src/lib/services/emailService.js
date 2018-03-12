@@ -13,6 +13,29 @@ class EmailService {
       })
     );
   }
+  sendForgetPassword(email, tokenUrl) {
+    return new Promise((resolve, reject) => {
+      this.transport.sendMail(
+        {
+          from: Config.email,
+          to: email,
+          subject: 'Joinble: Recover password',
+          html: `
+          <p>Click on the following link to change your password:</p>
+          <p><a href="${Config.urlClient}auth/change-password/${tokenUrl}">Click here</a></p>
+          `
+        },
+        (error, info) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(info);
+          }
+        }
+      );
+    });
+  }
+
   sendPassword(email, newPassword) {
     return new Promise((resolve, reject) => {
       this.transport.sendMail(
