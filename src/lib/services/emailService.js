@@ -22,7 +22,7 @@ class EmailService {
           subject: 'Joinble: Recover password',
           html: `
           <p>Click on the following link to change your password:</p>
-          <p><a href="${Config.urlClient}auth/change-password/${tokenUrl}">Click here</a></p>
+          <p><a href="${config.urlClient}auth/change-password/${tokenUrl}">Click here</a></p>
           `
         },
         (error, info) => {
