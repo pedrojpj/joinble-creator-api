@@ -9,31 +9,28 @@ const {
 
 const UserModel = require('./userModel');
 const UserSchema = require('./userSchema');
+const { ErrorService } = require('../../../lib/services');
 
 const UserQuery = {
-  users: {
-    type: new GraphQLList(UserSchema),
-    resolve(root, args) {
-      return UserModel.find();
-    }
-  },
   getUser: {
     type: new GraphQLObjectType({
       name: 'getUser',
       fields: {
-        name: {
-          type: GraphQLString
-        },
-        email: {
-          type: GraphQLString
+        user: {
+          type: UserSchema
         }
       }
     }),
-    resolve(root, args) {
-      return {
-        name: root.user ? root.user.name : null,
-        email: root.user ? root.user.email : null
-      };
+    async resolve(root, args) {
+      let user = {};
+
+      ErrorService.secure(root);
+
+      user = await UserModel.findOne({ email: root.user.email })
+        .select({ name: 1, email: 1, country: 1, city: 1, address: 1 })
+        .exec();
+
+      return { user };
     }
   },
   checkUser: {

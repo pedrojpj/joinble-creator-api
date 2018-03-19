@@ -5,22 +5,21 @@
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "MONGO_URI=mongodb://localhost:27017/joinble DEBUG=JOINBLE* nodemon src/index.js",
+    "start:dev": "NODE_ENV=developtment MONGO_URI=mongodb://localhost:27017/joinble DEBUG=JOINBLE* nodemon src/index.js",
     "start": "node src/index.js",
-    "build": "babel src -d build",
     "fixtures": "DEBUG=JOINBLE* MONGO_URI=mongodb://localhost:27017/joinble node src/lib/fixtures.js",
     "docker-run": "docker run -e MONGO_URI:mongodb://localhost:27017/joinble -e PORT=5000 web"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://minmaster@bitbucket.org/minmaster/joinble-creator-api.git.git"
+    "url": "git+https://github.com/pedrojpj/joinble-creator-api.git"
   },
   "author": "Joinble <joinblecreator@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://minmaster@bitbucket.org/minmaster/joinble-creator-api.git/issues"
+    "url": "https://github.com/pedrojpj/joinble-creator-api.git/issues"
   },
-  "homepage": "https://minmaster@bitbucket.org/minmaster/joinble-creator-api.git#readme",
+  "homepage": "https://github.com/pedrojpj/joinble-creator-api#readme",
   "dependencies": {
     "body-parser": "1.17.2",
     "cors": "2.8.4",
@@ -49,7 +48,7 @@
   "devDependencies": {
     "cz-conventional-changelog": "^2.1.0",
     "node-debug": "0.1.0",
-    "nodemon": "^1.15.1"
+    "nodemon": "1.17.2"
   },
   "config": {
     "commitizen": {

@@ -1,5 +1,6 @@
 const {
   GraphQLString: String,
+  GraphQLBoolean: Boolean,
   GraphQLInputObjectType: InputObjectType,
   GraphQLNonNull: NonNull
 } = require('graphql');
@@ -13,7 +14,8 @@ module.exports = {
       address: { type: new NonNull(String) },
       city: { type: new NonNull(String) },
       country: { type: new NonNull(String) },
-      password: { type: new NonNull(String) }
+      password: { type: new NonNull(String) },
+      conditions: { type: new NonNull(Boolean)}
     }
   }),
   LoginInput: new InputObjectType({

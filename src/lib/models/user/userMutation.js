@@ -82,6 +82,10 @@ const UserMutation = {
 
       if (checkUser) {
         errors.push(...[{ key: 'email', value: 'This email is already registered' }]);
+      } else if (!args.user.conditions) {
+        errors.push(
+          ...[{ key: 'conditions', value: 'It is mandatory to accept the conditions of use' }]
+        );
       } else {
         args.user.password = SecureService.encodePassword(args.user.password);
 
@@ -121,7 +125,9 @@ const UserMutation = {
         let resetPasswordToken = SecureService.generateTokenPass(user.email);
         let userUpdate = await UserModel.updateOne({ email: user.email }, { resetPasswordToken });
 
-        EmailService.sendForgetPassword(user.email, resetPasswordToken);
+        if (process.env.NODE_ENV === 'production') {
+          EmailService.sendForgetPassword(user.email, resetPasswordToken);
+        }
 
         if (!userUpdate) {
           errors.push(...[{ key: 'user', value: 'Generic error' }]);

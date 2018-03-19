@@ -5,6 +5,7 @@ const express = require('express');
 const config = require('./lib/config');
 const { DbService } = require('./lib/services');
 const api = require('./app/api');
+const nodemon = require('nodemon');
 
 const debug = require('debug')(config.appName);
 
@@ -22,3 +23,13 @@ apiApp.listen(apiPort, function() {
   console.log(`>>> API http listening ${apiPort}`);
   debug(`>>> API http listening ${apiPort}`);
 });
+
+process
+  .on('exit', code => {
+    nodemon.emit('quit');
+    process.exit(code);
+  })
+  .on('SIGINT', () => {
+    nodemon.emit('quit');
+    process.exit(0);
+  });
