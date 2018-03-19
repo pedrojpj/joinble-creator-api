@@ -19,8 +19,6 @@ const { ErrorSchema } = require('../error');
 const { ImageSchema } = require('../image');
 const { ErrorService } = require('../../../lib/services');
 
-console.log(Platforms);
-
 const AppInput = new GraphQLInputObjectType({
   name: 'AppInput',
   fields: {

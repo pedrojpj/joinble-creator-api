@@ -9,3 +9,4 @@ build/
 uploads/
 npm-debug.log
 .ash_history
+yarn-error.log

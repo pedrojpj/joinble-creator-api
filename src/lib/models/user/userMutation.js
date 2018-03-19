@@ -12,56 +12,51 @@ const {
 
 const UserModel = require('./userModel');
 const UserSchema = require('./userSchema');
-const { SecureService, ErrorService } = require('../../../lib/services');
+const { UserInput, LoginInput } = require('./userInput');
+const { SecureService, ErrorService, EmailService } = require('../../../lib/services');
 const { ErrorSchema } = require('../error');
 const { TokenSchema, TokenModel } = require('../token');
-
-const UserInput = new GraphQLInputObjectType({
-  name: 'UserInput',
-  fields: {
-    name: { type: new GraphQLNonNull(GraphQLString) },
-    email: { type: new GraphQLNonNull(GraphQLString) },
-    address: { type: new GraphQLNonNull(GraphQLString) },
-    city: { type: new GraphQLNonNull(GraphQLString) },
-    country: { type: new GraphQLNonNull(GraphQLString) },
-    password: { type: new GraphQLNonNull(GraphQLString) }
-  }
-});
 
 const UserMutation = {
   login: {
     type: new GraphQLObjectType({
       name: 'Login',
       fields: {
+        errors: { type: new GraphQLList(ErrorSchema) },
         user: { type: UserSchema },
         token: { type: TokenSchema }
       }
     }),
     args: {
-      email: {
-        type: new GraphQLNonNull(GraphQLString)
-      },
-      password: {
-        type: new GraphQLNonNull(GraphQLString)
+      login: {
+        type: LoginInput
       }
     },
     async resolve(root, args) {
+      let errors = [];
       let user = null;
       let token = null;
 
-      args.password = SecureService.encodePassword(args.password);
-      user = await UserModel.findOne(args);
+      const login = { ...args.login, password: SecureService.encodePassword(args.login.password) };
 
-      if (!user) {
-        return ErrorService.getErrorMessage(1001);
+      const userEmail = await UserModel.findOne({ email: login.email });
+
+      if (!userEmail) {
+        errors.push(...[{ key: 'email', value: 'This user does not exist' }]);
+      } else {
+        user = await UserModel.findOne(login);
+
+        if (!user) {
+          errors.push(...[{ key: 'password', value: 'The password is incorrect' }]);
+        } else {
+          token = SecureService.getToken({ id: user._id.toString() });
+          await TokenModel.find({ userId: user._id }).remove();
+          let newToken = new TokenModel({ userId: user._id, token: token, lastLogin: new Date() });
+          token = await newToken.save();
+        }
       }
 
-      token = SecureService.getToken({ id: user._id.toString() });
-      await TokenModel.find({ userId: user._id }).remove();
-      let newToken = new TokenModel({ userId: user._id, token: token, lastLogin: new Date() });
-      token = await newToken.save();
-
-      return { user, token };
+      return { errors, user, token };
     }
   },
   createUser: {
@@ -86,7 +81,11 @@ const UserMutation = {
       let checkUser = await UserModel.findOne({ email: args.user.email });
 
       if (checkUser) {
-        errors.push(...[{ key: 'email', message: 'This email is already registered' }]);
+        errors.push(...[{ key: 'email', value: 'This email is already registered' }]);
+      } else if (!args.user.conditions) {
+        errors.push(
+          ...[{ key: 'conditions', value: 'It is mandatory to accept the conditions of use' }]
+        );
       } else {
         args.user.password = SecureService.encodePassword(args.user.password);
 
@@ -120,20 +119,24 @@ const UserMutation = {
       let user = await UserModel.findOne(args);
 
       if (!user) {
-        errors.push(...[{ key: 'user', message: 'This user does not exist' }]);
+        errors.push(...[{ key: 'email', value: 'This user does not exist' }]);
         status = false;
       } else {
-        let newPassword = SecureService.generatePassword();
-        let updateUser = await UserModel(args, { password: newPassword });
+        let resetPasswordToken = SecureService.generateTokenPass(user.email);
+        let userUpdate = await UserModel.updateOne({ email: user.email }, { resetPasswordToken });
 
-        if (!updateUser) {
-          errors.push(...[{ key: 'user', message: 'Generic error' }]);
+        if (process.env.NODE_ENV === 'production') {
+          EmailService.sendForgetPassword(user.email, resetPasswordToken);
+        }
+
+        if (!userUpdate) {
+          errors.push(...[{ key: 'user', value: 'Generic error' }]);
         } else {
           status = true;
         }
       }
 
-      return { errors, token, user };
+      return { errors, status };
     }
   },
   logout: {
@@ -157,6 +160,55 @@ const UserMutation = {
       status = true;
 
       return { status };
+    }
+  },
+  changePassword: {
+    type: new GraphQLObjectType({
+      name: 'changePassword',
+      fields: {
+        errors: { type: new GraphQLList(ErrorSchema) },
+        status: { type: GraphQLBoolean }
+      }
+    }),
+    args: {
+      token: {
+        type: new GraphQLNonNull(GraphQLString)
+      },
+      password: {
+        type: new GraphQLNonNull(GraphQLString)
+      }
+    },
+    async resolve(root, args) {
+      let errors = [];
+      let status;
+
+      const parameters = { resetPasswordToken: args.token };
+
+      const findUser = await UserModel.findOne(parameters);
+
+      if (findUser) {
+        if (findUser.password === SecureService.encodePassword(args.password)) {
+          errors.push(
+            ...[{ key: 'repeatPassword', value: 'The new password cannot match the old one' }]
+          );
+          status = false;
+        } else {
+          const updateUser = await UserModel.updateOne(parameters, {
+            password: SecureService.encodePassword(args.password),
+            resetPasswordToken: null
+          });
+
+          if (updateUser) {
+            status = true;
+          } else {
+            ErrorService.getError();
+          }
+        }
+      } else {
+        ErrorService.getError();
+      }
+
+      return { errors, status };
     }
   }
 };

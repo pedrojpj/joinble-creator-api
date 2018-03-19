@@ -21,8 +21,7 @@ const RootQuery = new GraphQLObjectType({
     page: PageQuery.page,
     apps: AppQuery.apps,
     app: AppQuery.app,
-    users: UserQuery.users,
-    checkUser: UserQuery.checkUser,
+    ...UserQuery,
     countries: CountryQuery.countries,
     translations: TranslationQuery.translations,
     elements: ElementQuery.elements,
@@ -37,10 +36,7 @@ const RootMutation = new GraphQLObjectType({
     deletePage: PageMutation.deletePage,
     addApp: AppMutation.addApp,
     deleteApp: AppMutation.deleteApp,
-    login: UserMutation.login,
-    logout: UserMutation.logout,
-    createUser: UserMutation.createUser,
-    forgetPassword: UserMutation.forgetPassword
+    ...UserMutation
   })
 });
 
