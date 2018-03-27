@@ -32,7 +32,9 @@ async function generateElements() {
     let elem = await CheckComponent(element);
 
     if (elem) {
-      promises.push(ElementModel.findOneAndUpdate({ name: elem.name }, { $set: element }));
+      promises.push(
+        ElementModel.findOneAndUpdate({ name: elem.name }, { $set: element })
+      );
     } else {
       promises.push(ElementModel.create(element));
     }
@@ -44,7 +46,12 @@ async function generateWidgets() {
     let wg = await WidgetModel.findOne({ selector: widget.selector });
 
     if (wg) {
-      promises.push(WidgetModel.findOneAndUpdate({ selector: widget.selector }, { $set: widget }));
+      promises.push(
+        WidgetModel.findOneAndUpdate(
+          { selector: widget.selector },
+          { $set: widget }
+        )
+      );
     } else {
       promises.push(WidgetModel.create(widget));
     }
