@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Android",
+    "code": "android"
+  },
+  {
+    "name": "IOS",
+    "code": "ios"
+  },
+  {
+    "name": "Web",
+    "code": "web"
+  }
+]

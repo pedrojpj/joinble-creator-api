@@ -5,6 +5,7 @@ const { CountryQuery } = require('./country');
 const { TranslationQuery } = require('./translation');
 const { WidgetQuery } = require('./widget');
 const { ElementQuery } = require('./element');
+const { PlatformQuery } = require('./platform');
 
 const {
   GraphQLSchema,
@@ -22,8 +23,9 @@ const RootQuery = new GraphQLObjectType({
     apps: AppQuery.apps,
     app: AppQuery.app,
     ...UserQuery,
+    ...PlatformQuery,
     countries: CountryQuery.countries,
-    translations: TranslationQuery.translations,
+    languages: TranslationQuery.translations,
     elements: ElementQuery.elements,
     widgets: WidgetQuery.widgets
   })

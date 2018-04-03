@@ -1,5 +1,7 @@
 const ElementsData = require('./dataFixtures/elements.json');
 const ElementModel = require('./models/element/elementModel');
+const PlatformModel = require('./models/platform/platformModel');
+const Platforms = require('./dataFixtures/platforms.json');
 
 const WidgetsData = require('./dataFixtures/widgets.json');
 
@@ -27,12 +29,24 @@ async function generateUser() {
   }
 }
 
+async function generatePlatforms() {
+  Platforms.map(async platform => {
+    let query = await PlatformModel.findOne({ ...platform });
+
+    if (!query) {
+      promises.push(PlatformModel.create(platform));
+    }
+  });
+}
+
 async function generateElements() {
   for (let element of ElementsData.elements) {
     let elem = await CheckComponent(element);
 
     if (elem) {
-      promises.push(ElementModel.findOneAndUpdate({ name: elem.name }, { $set: element }));
+      promises.push(
+        ElementModel.findOneAndUpdate({ name: elem.name }, { $set: element })
+      );
     } else {
       promises.push(ElementModel.create(element));
     }
@@ -44,7 +58,12 @@ async function generateWidgets() {
     let wg = await WidgetModel.findOne({ selector: widget.selector });
 
     if (wg) {
-      promises.push(WidgetModel.findOneAndUpdate({ selector: widget.selector }, { $set: widget }));
+      promises.push(
+        WidgetModel.findOneAndUpdate(
+          { selector: widget.selector },
+          { $set: widget }
+        )
+      );
     } else {
       promises.push(WidgetModel.create(widget));
     }
@@ -60,6 +79,7 @@ async function executeTasks() {
   await generateUser();
   await generateElements();
   await generateWidgets();
+  await generatePlatforms();
 
   Promise.all(promises)
     .then(function() {
