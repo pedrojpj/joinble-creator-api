@@ -1,5 +1,7 @@
 const ElementsData = require('./dataFixtures/elements.json');
 const ElementModel = require('./models/element/elementModel');
+const PlatformModel = require('./models/platform/platformModel');
+const Platforms = require('./dataFixtures/platforms.json');
 
 const WidgetsData = require('./dataFixtures/widgets.json');
 
@@ -25,6 +27,16 @@ async function generateUser() {
       })
     );
   }
+}
+
+async function generatePlatforms() {
+  Platforms.map(async platform => {
+    let query = await PlatformModel.findOne({ ...platform });
+
+    if (!query) {
+      promises.push(PlatformModel.create(platform));
+    }
+  });
 }
 
 async function generateElements() {
@@ -67,6 +79,7 @@ async function executeTasks() {
   await generateUser();
   await generateElements();
   await generateWidgets();
+  await generatePlatforms();
 
   Promise.all(promises)
     .then(function() {
