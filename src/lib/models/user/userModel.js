@@ -45,6 +45,10 @@ const UserSchema = new mongoose.Schema({
   conditions: {
     type: Boolean
   },
+  avatar: {
+    type: String,
+    ref: 'image'
+  },
   updatedAt: Date
 });
 

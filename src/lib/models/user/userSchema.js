@@ -5,6 +5,8 @@ const {
   GraphQLID: Id
 } = require('graphql');
 
+const { ImageSchema, ImageModel } = require('../image');
+
 const User = new ObjectType({
   name: 'User',
   description: 'This represent a User',
@@ -26,6 +28,13 @@ const User = new ObjectType({
     },
     address: {
       type: String
+    },
+    avatar: {
+      type: ImageSchema,
+      async resolve(args) {
+        const image = await ImageModel.findOne({ _id: args.avatar });
+        return image;
+      }
     }
   }
 });

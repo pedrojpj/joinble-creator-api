@@ -5,7 +5,20 @@ const express = require('express');
 const config = require('./lib/config');
 const { DbService } = require('./lib/services');
 const api = require('./app/api');
-const nodemon = require('nodemon');
+
+var production = process.env.NODE_ENV === 'production';
+if (!production) {
+  var chokidar = require('chokidar');
+  var watcher = chokidar.watch('./src');
+  watcher.on('ready', function() {
+    watcher.on('all', function() {
+      console.log('Clearing /src/ module cache from server');
+      Object.keys(require.cache).forEach(function(id) {
+        if (/[\/\\]dist[\/\\]/.test(id)) delete require.cache[id];
+      });
+    });
+  });
+}
 
 const debug = require('debug')(config.appName);
 
@@ -23,13 +36,3 @@ apiApp.listen(apiPort, function() {
   console.log(`>>> API http listening ${apiPort}`);
   debug(`>>> API http listening ${apiPort}`);
 });
-
-process
-  .on('exit', code => {
-    nodemon.emit('quit');
-    process.exit(code);
-  })
-  .on('SIGINT', () => {
-    nodemon.emit('quit');
-    process.exit(0);
-  });

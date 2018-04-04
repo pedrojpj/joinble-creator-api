@@ -1,7 +1,9 @@
-const { JsonService } = require('../../../lib/services');
 const multer = require('multer');
 const uuid = require('node-uuid');
 const path = require('path');
+
+const { JsonService } = require('../../../lib/services');
+const { ImageModel } = require('../../../lib/models/image');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {

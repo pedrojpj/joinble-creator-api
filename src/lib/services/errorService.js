@@ -19,6 +19,9 @@ class ErrorService {
       case 1002:
         message = 'APP_NOT_EXIST';
         break;
+      case 1003:
+        message = 'ERROR_UPLOAD_IMAGE';
+        break;
       default:
         message = 'GENERIC_ERROR';
         break;

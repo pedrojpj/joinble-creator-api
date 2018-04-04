@@ -6,6 +6,7 @@ const { TranslationQuery } = require('./translation');
 const { WidgetQuery } = require('./widget');
 const { ElementQuery } = require('./element');
 const { PlatformQuery } = require('./platform');
+const { ImageMutation } = require('./image');
 
 const {
   GraphQLSchema,
@@ -38,7 +39,8 @@ const RootMutation = new GraphQLObjectType({
     deletePage: PageMutation.deletePage,
     addApp: AppMutation.addApp,
     deleteApp: AppMutation.deleteApp,
-    ...UserMutation
+    ...UserMutation,
+    ...ImageMutation
   })
 });
 

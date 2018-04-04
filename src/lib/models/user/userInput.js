@@ -25,7 +25,8 @@ module.exports = {
       email: { type: new NonNull(String) },
       address: { type: new NonNull(String) },
       city: { type: new NonNull(String) },
-      country: { type: new NonNull(String) }
+      country: { type: new NonNull(String) },
+      avatar: { type: new NonNull(String) }
     }
   }),
   LoginInput: new InputObjectType({

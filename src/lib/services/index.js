@@ -6,6 +6,7 @@ const ErrorService = require('./errorService');
 const EmailService = require('./emailService');
 const TranslationService = require('./translationService');
 const UtilsService = require('./utilsService');
+const UploadService = require('./uploadService');
 
 module.exports = {
   DbService,
@@ -15,5 +16,6 @@ module.exports = {
   ErrorService,
   EmailService,
   TranslationService,
-  UtilsService
+  UtilsService,
+  UploadService
 };

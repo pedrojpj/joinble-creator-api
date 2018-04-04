@@ -27,7 +27,7 @@ const UserQuery = {
       ErrorService.secure(root);
 
       user = await UserModel.findOne({ email: root.user.email })
-        .select({ name: 1, email: 1, country: 1, city: 1, address: 1 })
+        .select({ name: 1, email: 1, country: 1, city: 1, avatar: 1, address: 1 })
         .exec();
 
       return { user };
@@ -57,7 +57,7 @@ const UserQuery = {
   },
   checkRecoverPasswordToken: {
     type: new GraphQLObjectType({
-      name: 'checkRevocerPasswordToken',
+      name: 'checkRecoverPasswordToken',
       fields: {
         status: {
           type: GraphQLBoolean
