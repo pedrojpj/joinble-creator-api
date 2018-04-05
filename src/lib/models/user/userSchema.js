@@ -32,7 +32,11 @@ const User = new ObjectType({
     avatar: {
       type: ImageSchema,
       async resolve(args) {
-        const image = await ImageModel.findOne({ _id: args.avatar });
+        let image;
+
+        if (args.avatar) {
+          image = await ImageModel.findOne({ _id: args.avatar });
+        }
         return image;
       }
     }

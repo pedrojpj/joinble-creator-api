@@ -10,7 +10,7 @@ class UploadService {
 
   upload(image) {
     return new Promise((resolve, reject) => {
-      const base64Data = image.replace(/^data:image\/png;base64,/, '');
+      const base64Data = image.replace(/^data:image\/png;base64,/, '').replace(/^data:image\/jpeg;base64,/, '')
 
       const token = uuid.v4();
       const nameFile = token + '.png';
