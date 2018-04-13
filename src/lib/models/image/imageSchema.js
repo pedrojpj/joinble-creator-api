@@ -21,7 +21,7 @@ const Image = new GraphQLObjectType({
     image: {
       type: String,
       resolve(args) {
-        return config.apps.api.imageurl + args.image;
+        if (args.image) return config.apps.api.imageurl + args.image;
       }
     },
     id: {

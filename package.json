@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/pedrojpj/joinble-creator-api#readme",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "body-parser": "1.17.2",
     "chokidar": "^2.0.3",
     "cors": "2.8.4",

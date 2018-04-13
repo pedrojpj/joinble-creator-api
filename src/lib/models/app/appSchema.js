@@ -9,7 +9,7 @@ const {
 } = require('graphql');
 
 const config = require('../../../lib/config');
-const { ImageSchema } = require('../image');
+const { ImageSchema, ImageModel } = require('../image');
 
 const Platforms = new GraphQLEnumType({
   name: 'platforms',
@@ -52,8 +52,15 @@ const AppSchema = new GraphQLObjectType({
       },
       icon: {
         type: ImageSchema,
-        resolve(app) {
-          return app.icon;
+        async resolve(args) {
+          if (args.icon) {
+            image = await ImageModel.findOne({ _id: args.icon });
+          } else {
+            return {
+              image: null
+            };
+          }
+          return image;
         }
       },
       languages: {

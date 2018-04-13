@@ -36,6 +36,10 @@ const User = new ObjectType({
 
         if (args.avatar) {
           image = await ImageModel.findOne({ _id: args.avatar });
+        } else {
+          return {
+            image: null
+          };
         }
         return image;
       }

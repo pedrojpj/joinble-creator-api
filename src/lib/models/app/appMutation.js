@@ -18,19 +18,7 @@ const AppModel = require('./appModel');
 const { ErrorSchema } = require('../error');
 const { ImageSchema } = require('../image');
 const { ErrorService } = require('../../../lib/services');
-
-const AppInput = new GraphQLInputObjectType({
-  name: 'AppInput',
-  fields: {
-    id: { type: GraphQLString },
-    name: { type: new GraphQLNonNull(GraphQLString) },
-    code: { type: new GraphQLNonNull(GraphQLString) },
-    platform: { type: new GraphQLNonNull(new GraphQLList(Platforms)) },
-    domain: { type: new GraphQLNonNull(GraphQLString) },
-    icon: { type: new GraphQLNonNull(GraphQLString) },
-    languages: { type: new GraphQLNonNull(new GraphQLList(GraphQLString)) }
-  }
-});
+const AppInput = require('./appInput');
 
 const AppMutation = {
   addApp: {
@@ -46,7 +34,10 @@ const AppMutation = {
       args.app.user = mongoose.Types.ObjectId(root.user.id);
       args.app.id = mongoose.Types.ObjectId(args.app.id);
 
-      let app = await AppModel.findOne({ user: args.app.user, _id: args.app.id });
+      let app = await AppModel.findOne({
+        user: args.app.user,
+        _id: args.app.id
+      });
 
       if (app) {
         return await AppModel.findOneAndUpdate(
@@ -78,7 +69,10 @@ const AppMutation = {
 
       args.user = mongoose.Types.ObjectId(root.user.id);
       args._id = mongoose.Types.ObjectId(args.id);
-      let deleteApp = await AppModel.find({ user: args.user, _id: args._id }).remove();
+      let deleteApp = await AppModel.find({
+        user: args.user,
+        _id: args._id
+      }).remove();
 
       if (!deleteApp) {
         status = false;

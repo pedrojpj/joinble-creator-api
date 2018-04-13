@@ -37,7 +37,10 @@ const ImageMutation = {
       ErrorService.secure(root);
 
       try {
-        const imageUpload = await UploadService.upload(args.image.image);
+        const imageUpload = await UploadService.upload(
+          args.image.image,
+          args.image.crops
+        );
         image = await ImageModel.create(imageUpload);
       } catch (error) {
         ErrorService.getError(1003);
