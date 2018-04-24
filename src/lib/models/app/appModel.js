@@ -16,7 +16,7 @@ const AppSchema = new mongoose.Schema({
   code: {
     type: String
   },
-  platform: {
+  platforms: {
     type: []
   },
   domain: {

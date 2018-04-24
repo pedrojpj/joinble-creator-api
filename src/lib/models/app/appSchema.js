@@ -44,7 +44,7 @@ const AppSchema = new GraphQLObjectType({
       code: {
         type: GraphQLString
       },
-      platform: {
+      platforms: {
         type: new GraphQLList(Platforms)
       },
       domain: {
