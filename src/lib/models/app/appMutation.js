@@ -42,7 +42,7 @@ const AppMutation = {
       if (app) {
         return await AppModel.findOneAndUpdate(
           { user: args.app.user, _id: args.app.id },
-          { $set: args.app }
+          { $set: { ...args.app, updateAt: Date.now() } }
         );
       } else {
         let newApp = new AppModel(args.app);

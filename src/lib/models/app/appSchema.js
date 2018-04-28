@@ -7,6 +7,7 @@ const {
   GraphQLList,
   GraphQLEnumType
 } = require('graphql');
+const moment = require('moment');
 
 const config = require('../../../lib/config');
 const { ImageSchema, ImageModel } = require('../image');
@@ -67,7 +68,13 @@ const AppSchema = new GraphQLObjectType({
         type: new GraphQLList(GraphQLString)
       },
       updateAt: {
-        type: GraphQLString
+        type: GraphQLString,
+        resolve({ updateAt }) {
+          if (!updateAt) {
+            return null;
+          }
+          return moment(updateAt).toISOString();
+        }
       },
       createdAt: {
         type: GraphQLString

@@ -40,7 +40,10 @@ const PageMutation = {
         let page = await PageModel.findOne({ _id: args.page.id });
 
         if (page) {
-          return await PageModel.findOneAndUpdate({ _id: args.page.id }, { $set: args.page });
+          return await PageModel.findOneAndUpdate(
+            { _id: args.page.id },
+            { $set: { ...args.page, updateAt: Date.now() } }
+          );
         } else {
           let newPage = new PageModel(args.page);
           return await newPage.save();

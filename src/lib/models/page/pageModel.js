@@ -35,6 +35,7 @@ const PageSchema = new mongoose.Schema({
 
 PageSchema.pre('save', function(next) {
   this.slug = UtilsService.generateSlug(this.slug);
+  this.updatedAt = Date.now();
   next();
 });
 

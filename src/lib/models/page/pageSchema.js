@@ -8,8 +8,9 @@ const {
   GraphQLList: List
 } = require('graphql');
 
-const { SeoSchema } = require('../seo');
+const moment = require('moment');
 
+const { SeoSchema } = require('../seo');
 const { WidgetSchema } = require('../widget');
 
 const PageSchema = new ObjectType({
@@ -38,7 +39,13 @@ const PageSchema = new ObjectType({
       type: String
     },
     updateAt: {
-      type: String
+      type: String,
+      resolve({ updateAt }) {
+        if (!updateAt) {
+          return null;
+        }
+        return moment(updateAt).toISOString();
+      }
     },
     widgets: {
       type: new List(WidgetSchema)
