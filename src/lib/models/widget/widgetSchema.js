@@ -59,10 +59,19 @@ const WidgetSchema = new ObjectType({
       type: new Null(ID)
     },
     name: {
-      type: String
+      type: String,
+      resolve({ name }, args, request) {
+        return name[request.headers['accept-language']];
+      }
     },
     description: {
-      type: TranslationSchema
+      type: String,
+      resolve({ description }, args, request) {
+        return description[request.headers['accept-language']];
+      }
+    },
+    icon: {
+      type: String
     },
     content: {
       type: new List(ContentSchema)

@@ -22,7 +22,7 @@ module.exports = function(app) {
     graphqlHTPP(req => ({
       schema: Schema,
       ssrMode: false,
-      rootValue: { user: req.user },
+      rootValue: { user: req.user, language: req.headers['accept-language'] },
       graphiql: true
     }))
   );

@@ -8,9 +8,12 @@ const { ErrorService } = require('../../../lib/services');
 const WidgetQuery = {
   widgets: {
     type: new List(WidgetSchema),
-    resolve(root, args) {
+    root: {
+      example: 1
+    },
+    async resolve(root, args) {
       //ErrorService.secure(root);
-      return WidgetModel.find();
+      return await WidgetModel.find({});
     }
   }
 };

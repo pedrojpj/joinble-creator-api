@@ -69,9 +69,9 @@ const AppSchema = new GraphQLObjectType({
       },
       updateAt: {
         type: GraphQLString,
-        resolve({ updateAt }) {
+        resolve({ updateAt, createdAt }) {
           if (!updateAt) {
-            return null;
+            return moment(createdAt).toISOString();
           }
           return moment(updateAt).toISOString();
         }

@@ -1,121 +1,162 @@
 {
-    "widgets" : [
+  "widgets": [
+    {
+      "name": {
+        "es": "Contenido SEO",
+        "en": "Seo Content"
+      },
+      "icon": "fas fa-search",
+      "selector": "seo",
+      "description": {
+        "es": "Inserta contenido SEO en tu página",
+        "en": "Widget to insert seo content on the page"
+      },
+      "mode": "head",
+      "repeat": false,
+      "content": [
         {
-            "name" : "Seo Content",
-            "selector" : "seo",
-            "description" : {
-                "es" : "Inserta contenido SEO en tu página",
-                "en" : "Widget to insert seo content on the page"
-            },
-            "mode" : "head",
-            "repeat" : false,
-            "content" : [
-                {
-                    "component" : "title",
-                    "name" : "metaTitle",
-                    "label" : {
-                        "es" : "Introduce el título de la página",
-                        "en" : "Enter the title of the page"
-                    },
-                    "required" : true
-                },
-                {
-                    "component" : "tags",
-                    "name" : "metaKeywords",
-                    "label" : {
-                        "es" : "Introduce las palabras clave de la página",
-                        "en" : "Enter the keywords of the page"
-                    },
-                    "required" : false
-                },
-                {
-                    "component" : "description",
-                    "name" : "metaDescription",
-                    "label" : {
-                        "es" : "Introduce la descripción de la página",
-                        "en" : "Enter the description of the page"
-                    },
-                    "required" : true
-                }
-
-            ]
+          "component": "title",
+          "name": "metaTitle",
+          "label": {
+            "es": "Introduce el título de la página",
+            "en": "Enter the title of the page"
+          },
+          "required": true
         },
         {
-            "name" : "Google Analytics",
-            "selector" : "ga",
-            "description" : {
-                "es" : "Añade el trackeo de Google Analytics en tu página",
-                "en" : "Add the Google Analytics track on your page"
-            },
-            "mode" : "head",
-            "repeat" : false,
-            "content" : [
-                {
-                    "component" : "input",
-                    "name" : "trackerId",
-                    "label" : {
-                        "es" : "Introduce el id de seguimiento de Google Analytics",
-                        "en" : "Enter your Google Analytics tracking id"
-                    },
-                    "required" : true
-                }
-            ]
+          "component": "tags",
+          "name": "metaKeywords",
+          "label": {
+            "es": "Introduce las palabras clave de la página",
+            "en": "Enter the keywords of the page"
+          },
+          "required": false
         },
         {
-            "name" : "Gallery",
-            "selector" : "gallery",
-            "description" : {
-                "es" : "Galería de imágenes para mostrar en tu página",
-                "en" : "Image gallery to show on your page"
-            },
-            "mode" : "content",
-            "repeat" : true,
-            "content" : [
-                {
-                    "component" : "image",
-                    "options" : {
-                        "formats" : ["jpg", "png"],
-                        "maxSize" : 2000000
-                    },
-                    "repeat" : true,
-                    "name" : "image",
-                    "label" : {
-                        "es" : "Sube una imagen",
-                        "en" : "Upload an image"
-                    },
-                    "required" : true
-                }
-            ]
-        },
-        {
-            "name" : "Header",
-            "selector" : "header",
-            "description" : {
-                "es" : "Cabecera de la página",
-                "en" : "Page Header"
-            },
-            "mode" : "content",
-            "repeat" : false,
-            "content" : [
-                {
-                    "component" : "image",
-                    "name" : "image",
-                    "label" : {
-                        "es" : "Sube una imagen",
-                        "en" : "Upload an image"
-                    },
-                    "required" : true
-                },
-                {
-                    "component" : "title",
-                    "name" : "title",
-                    "label" : {
-                        "es" : "Introduce el título de la página",
-                        "en" : "Enter the title of the page"
-                    },
-                    "required" : true
-                }
-            ]
+          "component": "description",
+          "name": "metaDescription",
+          "label": {
+            "es": "Introduce la descripción de la página",
+            "en": "Enter the description of the page"
+          },
+          "required": true
         }
-    ]
+      ]
+    },
+    {
+      "name": {
+        "es": "Google Analytics",
+        "en": "Google Analytics"
+      },
+      "icon": "fas fa-chart-area",
+      "selector": "ga",
+      "description": {
+        "es": "Añade el trackeo de Google Analytics en tu página",
+        "en": "Add the Google Analytics track on your page"
+      },
+      "mode": "head",
+      "repeat": false,
+      "content": [
+        {
+          "component": "input",
+          "name": "trackerId",
+          "label": {
+            "es": "Introduce el id de seguimiento de Google Analytics",
+            "en": "Enter your Google Analytics tracking id"
+          },
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": {
+        "es": "Galería",
+        "en": "Gallery"
+      },
+      "icon": "fas fa-images",
+      "selector": "gallery",
+      "description": {
+        "es": "Galería de imágenes para mostrar en tu página",
+        "en": "Image gallery to show on your page"
+      },
+      "mode": "content",
+      "repeat": true,
+      "content": [
+        {
+          "component": "image",
+          "options": {
+            "formats": ["jpg", "png"],
+            "maxSize": 2000000
+          },
+          "repeat": true,
+          "name": "image",
+          "label": {
+            "es": "Sube una imagen",
+            "en": "Upload an image"
+          },
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": {
+        "es": "YouTube",
+        "en": "YouTube"
+      },
+      "icon": "fab fa-youtube",
+      "selector": "youtube",
+      "description": {
+        "es": "Videos enlazados desde Youtube",
+        "en": "Videos linked from Youtube"
+      },
+      "mode": "content",
+      "repeat": true,
+      "content": [
+        {
+          "component": "youtube",
+          "repeat": true,
+          "name": "youtube",
+          "label": {
+            "es": "Añade un enlace de youtube",
+            "en": "Add a youtube link"
+          },
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": {
+        "es": "Cabecera",
+        "en": "Cabecera"
+      },
+      "icon": "fas fa-heading",
+      "selector": "header",
+      "description": {
+        "es": "Cabecera de la página",
+        "en": "Page Header"
+      },
+      "mode": "content",
+      "repeat": false,
+      "content": [
+        {
+          "component": "image",
+          "name": "image",
+          "label": {
+            "es": "Sube una imagen",
+            "en": "Upload an image"
+          },
+          "required": true
+        },
+        {
+          "component": "title",
+          "name": "title",
+          "label": {
+            "es": "Introduce el título de la página",
+            "en": "Enter the title of the page"
+          },
+          "required": true
+        }
+      ]
+    }
+  ]
 }

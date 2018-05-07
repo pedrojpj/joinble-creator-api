@@ -39,6 +39,13 @@ const PageMutation = {
 
         let page = await PageModel.findOne({ _id: args.page.id });
 
+        if (args.page.primary) {
+          await PageModel.findOneAndUpdate(
+            { primary: true },
+            { $set: { primary: false, updateAt: Date.now() } }
+          );
+        }
+
         if (page) {
           return await PageModel.findOneAndUpdate(
             { _id: args.page.id },

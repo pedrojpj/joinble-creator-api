@@ -2,12 +2,14 @@ const mongoose = require('mongoose');
 
 const WidgetSchema = new mongoose.Schema({
   name: {
-    type: String,
-    trim: true,
+    type: {},
     required: true
   },
   description: {
     type: {}
+  },
+  icon: {
+    type: String
   },
   repeat: {
     type: Boolean,
