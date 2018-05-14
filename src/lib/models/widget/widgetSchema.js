@@ -64,6 +64,9 @@ const WidgetSchema = new ObjectType({
         return name[request.headers['accept-language']];
       }
     },
+    selector: {
+      type: String
+    },
     description: {
       type: String,
       resolve({ description }, args, request) {
@@ -79,7 +82,7 @@ const WidgetSchema = new ObjectType({
     repeat: {
       type: Boolean
     },
-    mode: {
+    type: {
       type: String
     }
   }

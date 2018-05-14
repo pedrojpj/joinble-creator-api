@@ -11,7 +11,7 @@
         "es": "Inserta contenido SEO en tu página",
         "en": "Widget to insert seo content on the page"
       },
-      "mode": "head",
+      "type": "app",
       "repeat": false,
       "content": [
         {
@@ -54,7 +54,7 @@
         "es": "Añade el trackeo de Google Analytics en tu página",
         "en": "Add the Google Analytics track on your page"
       },
-      "mode": "head",
+      "type": "app",
       "repeat": false,
       "content": [
         {
@@ -79,7 +79,7 @@
         "es": "Galería de imágenes para mostrar en tu página",
         "en": "Image gallery to show on your page"
       },
-      "mode": "content",
+      "type": "page",
       "repeat": true,
       "content": [
         {
@@ -109,7 +109,7 @@
         "es": "Videos enlazados desde Youtube",
         "en": "Videos linked from Youtube"
       },
-      "mode": "content",
+      "type": "page",
       "repeat": true,
       "content": [
         {
@@ -135,7 +135,7 @@
         "es": "Cabecera de la página",
         "en": "Page Header"
       },
-      "mode": "content",
+      "type": "page",
       "repeat": false,
       "content": [
         {

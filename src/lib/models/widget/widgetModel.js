@@ -15,7 +15,7 @@ const WidgetSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  mode: {
+  type: {
     type: String,
     required: true
   },
